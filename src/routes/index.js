@@ -4,7 +4,8 @@ const routes = [
     {
         path: "/signup",
         component: SignUp,
-    }
+    },
+
 ]
 
 export default routes;

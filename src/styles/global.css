@@ -52,7 +52,7 @@ a {
 
  /* SignUP Css  */
 .input {
-    margin: 1rem;
+    margin-top: 1.5rem;
     /* border: none; */
     border-radius: 0;
     /* border-bottom: 1px solid gray; */
@@ -60,4 +60,8 @@ a {
 
 .input::placeholder {
     font-size: 0.75rem ;
+}
+
+.pa-error {
+    outline: 1px solid red;
 }
