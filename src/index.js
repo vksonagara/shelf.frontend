@@ -4,7 +4,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './styles/global.css'
+import './styles/font.css'
+
+import './styles/global.css';
+
+
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,9 +1,9 @@
-import Sidebar from "../components/common/Sidebar";
+import SignUp from "../components/views/SignUp"
 
 const routes = [
     {
-        path: "",
-        component: Sidebar,
+        path: "/signup",
+        component: SignUp,
     }
 ]
 
