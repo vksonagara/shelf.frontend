@@ -4,29 +4,33 @@ import { useState } from "react";
 import { SuccessMessage, DangerMessage } from "../common/Message";
 import { Formik, Field } from "formik";
 import { signUpSchema, validateEmail } from "../../utils/ValidationUtil";
+import AppLogo from "../common/AppLogo";
+import userApi from "../../api/users";
 
-
-function ValidationError({err}) {
-  return (<div
-  style={{
-    width: "100%",
-  }}
->
-  <p
-    className="m-0 p-0 text-danger"
-    style={{
-      fontSize: "11px",
-    }}
-  >
-    {err}
-  </p>
-</div>);
+function ValidationError({ err }) {
+  return (
+    <div
+      style={{
+        width: "100%",
+      }}
+    >
+      <p
+        className="m-0 p-0 text-danger"
+        style={{
+          fontSize: "11px",
+        }}
+      >
+        {err}
+      </p>
+    </div>
+  );
 }
 
 function SignUp() {
+  const [isMeesageVisible, setMessageVisible] = useState({});
   return (
     <div className="d-flex flex-column align-items-center">
-      <i className="bi bi-bootstrap-fill icon-40 mt-4"></i>
+      <AppLogo />
       <section
         className="d-flex flex-column align-items-center"
         style={{
@@ -37,6 +41,13 @@ function SignUp() {
           boxSizing: "border-box",
         }}
       >
+        {isMeesageVisible.isError && (
+          <DangerMessage message={isMeesageVisible.message} />
+        )}
+        {isMeesageVisible.message && !isMeesageVisible.isError && (
+          <SuccessMessage message={isMeesageVisible.message} />
+        )}
+
         <Formik
           validationSchema={signUpSchema}
           initialValues={{
@@ -45,28 +56,25 @@ function SignUp() {
             emailId: "",
             password: "",
           }}
-          // validate={(values) => {
-          //   const errors = {};
-          //   const { error } = signUpSchema.validate(values, {
-          //     abortEarly: false,
-          //   });
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            const { data, error } = await userApi.signup(values);
 
-          //   if (error) {
-          //     error.details.forEach((err) => {
-          //       // console.log(err.context.key);
-          //       errors[err.context.key] = err.message;
-          //     });
-          //   }
+            setSubmitting(false);
 
-          //   // console.log(JSON.stringify(error));
-
-          //   return errors;
-          // }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              console.log(values);
-              setSubmitting(false);
-            }, 400);
+            if (error) {
+              console.log(error);
+              setMessageVisible({
+                isError: true,
+                message: error,
+              });
+            } else {
+              console.log("success");
+              setMessageVisible({
+                isError: false,
+                message: `A verification link has been sent to ${values.emailId}`,
+              });
+              resetForm({});
+            }
           }}
         >
           {({
@@ -95,50 +103,58 @@ function SignUp() {
                 <Form.Control
                   type="text"
                   placeholder="First name"
-                  className={`input  ${(touched.firstName && errors.firstName) ? "pa-error" : ""}`}
+                  className={`input  ${
+                    touched.firstName && errors.firstName ? "pa-error" : ""
+                  }`}
                   name="firstName"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.firstName}
                 />
                 {touched.firstName && errors.firstName && (
-                  <ValidationError err = {errors.firstName}/>
+                  <ValidationError err={errors.firstName} />
                 )}
                 <Form.Control
                   type="text"
                   placeholder="Last name"
-                  className={`input  ${(touched.lastName && errors.lastName) ? "pa-error" : ""}`}
+                  className={`input  ${
+                    touched.lastName && errors.lastName ? "pa-error" : ""
+                  }`}
                   name="lastName"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.lastName}
                 />
                 {touched.lastName && errors.lastName && (
-                  <ValidationError err = {errors.lastName}/>
+                  <ValidationError err={errors.lastName} />
                 )}
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
-                  className={`input  ${(touched.emailId && errors.emailId) ? "pa-error" : ""}`}
+                  className={`input  ${
+                    touched.emailId && errors.emailId ? "pa-error" : ""
+                  }`}
                   name="emailId"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.emailId}
                 />
                 {touched.emailId && errors.emailId && (
-                  <ValidationError err = {errors.emailId}/>
+                  <ValidationError err={errors.emailId} />
                 )}
                 <Form.Control
                   type="password"
                   placeholder="Enter password"
-                  className={`input  ${(touched.password && errors.password) ? "pa-error" : ""}`}
+                  className={`input  ${
+                    touched.password && errors.password ? "pa-error" : ""
+                  }`}
                   name="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
                 />
                 {touched.password && errors.password && (
-                  <ValidationError err = {errors.password}/>
+                  <ValidationError err={errors.password} />
                 )}
                 <p
                   className="mt-3"

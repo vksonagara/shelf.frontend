@@ -2,6 +2,7 @@ import { Dropdown, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Menus from "../../config/menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import AppLogo from "./AppLogo"
 
 function Logo() {
   return (
@@ -19,7 +20,7 @@ function Logo() {
           color: "black"
         }}
       >
-        <i className="bi bi-bootstrap-fill icon-32"></i>
+        <AppLogo />
       </Link>
     </div>
   );

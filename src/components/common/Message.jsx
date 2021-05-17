@@ -11,7 +11,7 @@ function Message({ type, message }) {
       <p
         className="m-0"
         style={{
-          fontSize: "14px",
+          fontSize: "15px",
           fontWeight: "400",
           textAlign: "center",
         }}
