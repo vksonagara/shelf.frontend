@@ -2,7 +2,7 @@ import { Dropdown, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Menus from "../../config/menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import AppLogo from "./AppLogo"
+import AppLogo from "./AppLogo";
 
 function Logo() {
   return (
@@ -16,8 +16,8 @@ function Logo() {
       <Link
         to="/"
         className="p-2 m-1"
-        style = {{
-          color: "black"
+        style={{
+          color: "black",
         }}
       >
         <AppLogo />
@@ -45,7 +45,7 @@ function Menu() {
             placement="right"
             overlay={<Tooltip id={`tooltip-right`}>{menu.title}</Tooltip>}
           >
-            <Link to = {`${menu.title}`}>
+            <Link to={`${menu.title}`}>
               <div
                 className={`border-bottom d-flex justify-content-center icon-container  ${
                   activeMenuIndex == index ? "active-icon-container" : ""
@@ -97,19 +97,21 @@ function Sidebar() {
             <i className="bi bi-person-circle icon-20"></i>
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Link to = "/setting">
-            <Dropdown.Item eventKey="1" as = "div">
-              Setting
-            </Dropdown.Item>
+            <Link to="/setting">
+              <Dropdown.Item eventKey="1" as="div">
+                Setting
+              </Dropdown.Item>
             </Link>
-            <Link to = "/profile">
-            <Dropdown.Item eventKey="2" as = "div">
-              Profile
-            </Dropdown.Item>
+            <Link to="/profile">
+              <Dropdown.Item eventKey="2" as="div">
+                Profile
+              </Dropdown.Item>
             </Link>
-           <Link to = "/help">
-           <Dropdown.Item eventKey="3" as = "div">Help</Dropdown.Item>
-           </Link>
+            <Link to="/help">
+              <Dropdown.Item eventKey="3" as="div">
+                Help
+              </Dropdown.Item>
+            </Link>
             <Dropdown.Divider />
             <Dropdown.Item eventKey="4">Sign Out</Dropdown.Item>
           </Dropdown.Menu>
@@ -118,6 +120,5 @@ function Sidebar() {
     </div>
   );
 }
-
 
 export default Sidebar;

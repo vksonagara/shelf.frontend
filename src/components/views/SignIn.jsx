@@ -1,9 +1,9 @@
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { SuccessMessage, DangerMessage } from "../common/Message";
+import { DangerMessage } from "../common/Message";
 import { Formik } from "formik";
-import { signUpSchema } from "../../utils/ValidationUtil";
+import { signInSchema } from "../../utils/ValidationUtil";
 import AppLogo from "../common/AppLogo";
 import userApi from "../../api/users";
 
@@ -26,7 +26,7 @@ function ValidationError({ err }) {
   );
 }
 
-function SignUp() {
+function SignIn() {
   const [isMeesageVisible, setMessageVisible] = useState({});
   return (
     <div className="d-flex flex-column align-items-center">
@@ -38,27 +38,22 @@ function SignUp() {
           boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 10px",
           marginTop: "1rem",
           padding: "1rem 2rem",
-          maxWidth: "400px",
+          width: "400px",
           boxSizing: "border-box",
         }}
       >
         {isMeesageVisible.isError && (
           <DangerMessage message={isMeesageVisible.message} />
         )}
-        {isMeesageVisible.message && !isMeesageVisible.isError && (
-          <SuccessMessage message={isMeesageVisible.message} />
-        )}
 
         <Formik
-          validationSchema={signUpSchema}
+          validationSchema={signInSchema}
           initialValues={{
-            firstName: "",
-            lastName: "",
             emailId: "",
             password: "",
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
-            const { error } = await userApi.signup(values);
+            const { error } = await userApi.signin(values);
 
             setSubmitting(false);
 
@@ -70,10 +65,6 @@ function SignUp() {
               });
             } else {
               console.log("success");
-              setMessageVisible({
-                isError: false,
-                message: `A verification link has been sent to ${values.emailId}`,
-              });
               resetForm({});
             }
           }}
@@ -89,8 +80,6 @@ function SignUp() {
           }) => {
             return (
               <>
-                {/* {signUpStatus == "success" && <SuccessMessage message="A verification link has been sent!" />} */}
-                {/* {errors && <DangerMessage message="Please fill all mandatory fields!" />} */}
                 <h5
                   style={{
                     color: "rgb(94, 108, 132)",
@@ -99,36 +88,8 @@ function SignUp() {
                     fontWeight: "700",
                   }}
                 >
-                  Sign up for your account
+                  Sign in to Shelf
                 </h5>
-                <Form.Control
-                  type="text"
-                  placeholder="First name"
-                  className={`input  ${
-                    touched.firstName && errors.firstName ? "pa-error" : ""
-                  }`}
-                  name="firstName"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.firstName}
-                />
-                {touched.firstName && errors.firstName && (
-                  <ValidationError err={errors.firstName} />
-                )}
-                <Form.Control
-                  type="text"
-                  placeholder="Last name"
-                  className={`input  ${
-                    touched.lastName && errors.lastName ? "pa-error" : ""
-                  }`}
-                  name="lastName"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.lastName}
-                />
-                {touched.lastName && errors.lastName && (
-                  <ValidationError err={errors.lastName} />
-                )}
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
@@ -157,23 +118,10 @@ function SignUp() {
                 {touched.password && errors.password && (
                   <ValidationError err={errors.password} />
                 )}
-                <p
-                  className="mt-3"
-                  style={{
-                    color: "#5E6C84",
-                    fontSize: "12px",
-                    lineHeight: "1rem",
-                    marginTop: "0.5rem",
-                  }}
-                >
-                  By signing up, I accept the
-                  <Link to="/terms"> Terms of Service</Link> and acknowledge the
-                  <Link to="/privacy"> Privacy Policy</Link> .
-                </p>
                 <Button
                   variant="primary"
                   block
-                  className="m-3"
+                  className="m-4  "
                   style={{
                     fontSize: "14px",
                   }}
@@ -181,7 +129,7 @@ function SignUp() {
                   type="submit"
                   onClick={handleSubmit}
                 >
-                  Sign Up
+                  Sign In
                 </Button>{" "}
                 <p>Or</p>
                 <Button
@@ -212,17 +160,17 @@ function SignUp() {
           }}
         </Formik>
         <Link
-          to="/signin"
+          to="/signup"
           style={{
             fontSize: "0.85rem",
             margin: "1rem 0",
           }}
         >
-          Already have an account? Sign In
+          Sign Up for new account
         </Link>
       </section>
     </div>
   );
 }
 
-export default SignUp;
+export default SignIn;

@@ -17,9 +17,9 @@ const userApi = {
 
       console.log(response);
 
-      return { data: null, error: null };
+      return { error: null };
     } catch (err) {
-      return { data: null, error: err.response.data.message };
+      return { error: err.response.data.message };
     }
   },
 
@@ -33,6 +33,24 @@ const userApi = {
       return { message, error: null };
     } catch (err) {
       return { message: err.response.data.message, error: true };
+    }
+  },
+
+  async signin({ emailId, password }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${config.BASE_API_URL}/api/users/signin`,
+        data: {
+          emailId,
+          password,
+        },
+      });
+
+      console.log(response);
+      return { error: null };
+    } catch (err) {
+      return { error: err.response.data.message };
     }
   },
 };
