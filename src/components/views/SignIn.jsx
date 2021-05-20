@@ -1,11 +1,14 @@
+import _ from "lodash";
+import { useDispatch } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { Formik, Field } from "formik";
 import { useState } from "react";
 import { DangerMessage } from "../common/Message";
-import { Formik, Field } from "formik";
 import { signInSchema } from "../../utils/ValidationUtil";
 import AppLogo from "../common/AppLogo";
 import userApi from "../../api/users";
+import { signIn } from "../../redux/auth";
 
 function ValidationError({ err }) {
   return (
@@ -28,6 +31,8 @@ function ValidationError({ err }) {
 
 function SignIn() {
   const [isMeesageVisible, setMessageVisible] = useState({});
+  const dispatch = useDispatch();
+
   return (
     <div className="d-flex flex-column align-items-center">
       <AppLogo />
@@ -53,8 +58,8 @@ function SignIn() {
             password: "",
             rememberMe: false,
           }}
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
-            const { error } = await userApi.signin(values);
+          onSubmit={async (values, { setSubmitting }) => {
+            const { data, error } = await userApi.signin(values);
 
             setSubmitting(false);
 
@@ -66,7 +71,7 @@ function SignIn() {
               });
             } else {
               console.log("success");
-              resetForm({});
+              dispatch(signIn(data));
             }
           }}
         >
@@ -94,9 +99,8 @@ function SignIn() {
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
-                  className={`input  ${
-                    touched.emailId && errors.emailId ? "pa-error" : ""
-                  }`}
+                  className={`input  ${touched.emailId && errors.emailId ? "pa-error" : ""
+                    }`}
                   name="emailId"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -108,9 +112,8 @@ function SignIn() {
                 <Form.Control
                   type="password"
                   placeholder="Enter password"
-                  className={`input  ${
-                    touched.password && errors.password ? "pa-error" : ""
-                  }`}
+                  className={`input  ${touched.password && errors.password ? "pa-error" : ""
+                    }`}
                   name="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -130,7 +133,7 @@ function SignIn() {
                     <Field
                       type="checkbox"
                       name="rememberMe"
-                      checked = {values.rememberMe}
+                      checked={values.rememberMe}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       className="mr-2"

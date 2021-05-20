@@ -6,10 +6,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles/font.css";
 import "./styles/global.css";
+import store from "./redux/store";
+import { Provider } from "react-redux";
+import { interceptor } from "./api";
+
+interceptor(store);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}><App /></Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

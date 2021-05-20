@@ -5,7 +5,7 @@ function Message({ type, message }) {
     <Alert variant={type} className={`d-flex flex-column align-items-center`}>
       <i
         className={`bi icon-40 ${
-          type == "success" ? "bi-check-circle-fill" : "bi-x-circle-fill"
+          type === "success" ? "bi-check-circle-fill" : "bi-x-circle-fill"
         }`}
       ></i>
       <p
