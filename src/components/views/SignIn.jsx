@@ -2,7 +2,7 @@ import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { DangerMessage } from "../common/Message";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import { signInSchema } from "../../utils/ValidationUtil";
 import AppLogo from "../common/AppLogo";
 import userApi from "../../api/users";
@@ -51,6 +51,7 @@ function SignIn() {
           initialValues={{
             emailId: "",
             password: "",
+            rememberMe: false,
           }}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             const { error } = await userApi.signin(values);
@@ -118,6 +119,25 @@ function SignIn() {
                 {touched.password && errors.password && (
                   <ValidationError err={errors.password} />
                 )}
+                <div
+                  style={{
+                    width: "100%",
+                    marginTop: "1rem",
+                    fontSize: "0.8rem",
+                  }}
+                >
+                  <label className="d-flex align-items-center">
+                    <Field
+                      type="checkbox"
+                      name="rememberMe"
+                      checked = {values.rememberMe}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="mr-2"
+                    />
+                    Remember me
+                  </label>
+                </div>
                 <Button
                   variant="primary"
                   block

@@ -9,7 +9,6 @@ function VerifyEmail() {
   const token = new URLSearchParams(location.search).get("token");
   const [response, setResponse] = useState({});
 
-
   useEffect(() => {
     if (_.isEmpty(response)) {
       userApi.verifyEmail(token).then((res) => {

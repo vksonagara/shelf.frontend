@@ -36,18 +36,20 @@ const userApi = {
     }
   },
 
-  async signin({ emailId, password }) {
+  async signin({ emailId, password, rememberMe }) {
     try {
       const response = await axios({
         method: "POST",
-        url: `${config.BASE_API_URL}/api/users/signin`,
+        url: `${config.BASE_API_URL}/api/users/sign-in`,
         data: {
           emailId,
           password,
+          rememberMe
         },
       });
 
-      console.log(response);
+      const accessToken = response.data.accessToken;
+      
       return { error: null };
     } catch (err) {
       return { error: err.response.data.message };
