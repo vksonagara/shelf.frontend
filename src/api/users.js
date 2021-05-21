@@ -1,5 +1,6 @@
 import axios from "../api";
 import config from "../config";
+import { signOut } from "../redux/auth";
 
 const userApi = {
   async signup({ firstName, lastName, emailId, password }) {
@@ -66,6 +67,19 @@ const userApi = {
       return { error: null, data: response.data };
     } catch (err) {
       return { data: null, error: err.response.data.message };
+    }
+  },
+  
+  async signout() {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${config.BASE_API_URL}/api/users/sign-out`,
+        withCredentials: true
+      });
+      return {error: null, data: response.data}
+    } catch(err) {
+      return {error: err.response.data.message}
     }
   }
 };

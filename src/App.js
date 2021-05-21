@@ -4,13 +4,16 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import routes from "./routes";
 import { useDispatch } from "react-redux";
 import { signIn } from "./redux/auth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import userApi from "./api/users";
+import Sidebar from "./components/common/Sidebar";
+import Loader from "./components/common/Loader";
+// import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
-  const isAuthenticated = !_.isEmpty(auth);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     userApi.getAccessToken().then(({ error, data }) => {
@@ -19,6 +22,7 @@ function App() {
       } else {
         dispatch(signIn(data));
       }
+      setLoading(false);
     });
   }, [])
 
@@ -27,18 +31,33 @@ function App() {
       <Router>
         <Switch>
           {routes.map((route, index) => {
-            const { path, component, isProtected, onlyGuest } = route;
+            const { path, component: Component, isProtected, onlyGuest, hasSidebar } = route;
+            const isAuthenticated = !_.isEmpty(auth);
+
+            if (loading) {
+              return <Route path={path} render={() => { return <Loader /> }} />;
+            }
 
             if (isProtected && !isAuthenticated) {
-              return <Redirect to="/signin" />
+              return <Route path={path} render={() => { return <Redirect to="/signin" />; }} />
             }
 
             if (onlyGuest && isAuthenticated) {
-              return <Redirect to="/" />
+              return <Route path={path} render={() => { return <Redirect to="/notes" />; }} />
             }
 
             return (
-              <Route path={path} component={component} key={index} />
+              <Route path={path} render={() => {
+                return (
+                  <>
+                    {hasSidebar && <Sidebar />}
+                    <div style= {{
+                      position: "relative",
+                      left: "75px",
+                    }}><Component /></div>
+                  </>
+                )
+              }} key={index} />
             );
           })}
         </Switch>

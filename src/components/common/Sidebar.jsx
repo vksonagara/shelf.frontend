@@ -2,7 +2,9 @@ import { Dropdown, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Menus from "../../config/menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import AppLogo from "./AppLogo";
+import userApi from "../../api/users";
+import { useDispatch } from "react-redux";
+import { signOut } from "../../redux/auth";
 
 function Logo() {
   return (
@@ -15,12 +17,14 @@ function Logo() {
     >
       <Link
         to="/"
-        className="p-2 m-1"
+        className="p-2 m-3 text-primary"
         style={{
           color: "black",
+          fontWeight: "700",
+          fontSize: "21px"
         }}
       >
-        <AppLogo />
+        Shelf
       </Link>
     </div>
   );
@@ -44,17 +48,16 @@ function Menu() {
           <OverlayTrigger
             placement="right"
             overlay={<Tooltip id={`tooltip-right`}>{menu.title}</Tooltip>}
+            key={index}
           >
             <Link to={`${menu.title}`}>
               <div
-                className={`border-bottom d-flex justify-content-center icon-container  ${
-                  activeMenuIndex == index ? "active-icon-container" : ""
-                }`}
+                className={`border-bottom d-flex justify-content-center icon-container  ${activeMenuIndex == index ? "active-icon-container" : ""
+                  }`}
                 style={{
                   width: "100%",
                   cursor: "pointer",
                 }}
-                key={index}
                 onClick={() => {
                   handleMenuClick(index);
                 }}
@@ -63,9 +66,8 @@ function Menu() {
                   <img src={menu.iconUrl} />
                 ) : (
                   <i
-                    className={`${menu.iconClass} ${
-                      activeMenuIndex == index ? "active-icon" : ""
-                    }`}
+                    className={`${menu.iconClass} ${activeMenuIndex == index ? "active-icon" : ""
+                      }`}
                   ></i>
                 )}
               </div>
@@ -78,11 +80,13 @@ function Menu() {
 }
 
 function Sidebar() {
+  const dispatch = useDispatch();
   return (
     <div
       style={{
         height: "100vh",
         maxWidth: "75px",
+        position: "fixed"
       }}
       className="bg-light d-flex flex-column justify-content-between"
     >
@@ -113,7 +117,15 @@ function Sidebar() {
               </Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item eventKey="4">Sign Out</Dropdown.Item>
+            <Dropdown.Item eventKey="4" onClick={async () => {
+              const { error } = await userApi.signout();
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("success");
+                dispatch(signOut());
+              }
+            }}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </div>

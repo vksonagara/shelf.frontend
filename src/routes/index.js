@@ -1,3 +1,4 @@
+import NotesDashboard from "../components/views/notes/NotesDashboard";
 import SignIn from "../components/views/SignIn";
 import SignUp from "../components/views/SignUp";
 import VerifyEmail from "../components/views/VerifyEmail";
@@ -18,11 +19,12 @@ const routes = [
     component: SignIn,
     onlyGuest: true
   },
-  // {
-  //   path: "/notes",
-  //   component: NoteDashboard,
-  //   isProtected: true
-  // }
+  {
+    path: "/notes",
+    component: NotesDashboard,
+    isProtected: true,
+    hasSidebar: true
+  }
 ];
 
 export default routes;
