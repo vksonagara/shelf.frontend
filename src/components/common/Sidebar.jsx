@@ -100,9 +100,10 @@ function Sidebar() {
             {/* <img src="/images/person.svg" alt="" /> */}
             <i className="bi bi-person-circle icon-20"></i>
           </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu >
             <Link to="/setting">
-              <Dropdown.Item eventKey="1" as="div">
+              <Dropdown.Item eventKey="1" as="div" 
+              >
                 Setting
               </Dropdown.Item>
             </Link>

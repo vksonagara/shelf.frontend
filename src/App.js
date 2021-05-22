@@ -50,10 +50,7 @@ function App() {
                 return (
                   <>
                     {hasSidebar && <Sidebar />}
-                    <div style= {{
-                      position: "relative",
-                      left: "75px",
-                    }}><Component /></div>
+                    <Component />
                   </>
                 )
               }} key={index} />
