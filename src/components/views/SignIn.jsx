@@ -1,11 +1,14 @@
+import _ from "lodash";
+import { useDispatch } from "react-redux";
 import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { Formik, Field } from "formik";
 import { useState } from "react";
-import { SuccessMessage, DangerMessage } from "../common/Message";
-import { Formik } from "formik";
-import { signUpSchema } from "../../utils/ValidationUtil";
+import { DangerMessage } from "../common/Message";
+import { signInSchema } from "../../utils/ValidationUtil";
 import AppLogo from "../common/AppLogo";
 import userApi from "../../api/users";
+import { signIn } from "../../redux/auth";
 
 function ValidationError({ err }) {
   return (
@@ -26,8 +29,10 @@ function ValidationError({ err }) {
   );
 }
 
-function SignUp() {
+function SignIn() {
   const [isMeesageVisible, setMessageVisible] = useState({});
+  const dispatch = useDispatch();
+
   return (
     <div className="d-flex flex-column align-items-center">
       <AppLogo />
@@ -38,27 +43,23 @@ function SignUp() {
           boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 10px",
           marginTop: "1rem",
           padding: "1rem 2rem",
-          maxWidth: "400px",
+          width: "400px",
           boxSizing: "border-box",
         }}
       >
         {isMeesageVisible.isError && (
           <DangerMessage message={isMeesageVisible.message} />
         )}
-        {isMeesageVisible.message && !isMeesageVisible.isError && (
-          <SuccessMessage message={isMeesageVisible.message} />
-        )}
 
         <Formik
-          validationSchema={signUpSchema}
+          validationSchema={signInSchema}
           initialValues={{
-            firstName: "",
-            lastName: "",
             emailId: "",
             password: "",
+            rememberMe: false,
           }}
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
-            const { error } = await userApi.signup(values);
+          onSubmit={async (values, { setSubmitting }) => {
+            const { data, error } = await userApi.signin(values);
 
             setSubmitting(false);
 
@@ -68,11 +69,7 @@ function SignUp() {
                 message: error,
               });
             } else {
-              setMessageVisible({
-                isError: false,
-                message: `A verification link has been sent to ${values.emailId}`,
-              });
-              resetForm({});
+              dispatch(signIn(data));
             }
           }}
         >
@@ -95,42 +92,13 @@ function SignUp() {
                     fontWeight: "700",
                   }}
                 >
-                  Sign up for your account
+                  Sign in to Shelf
                 </h5>
-                <Form.Control
-                  type="text"
-                  placeholder="First name"
-                  className={`input  ${
-                    touched.firstName && errors.firstName ? "pa-error" : ""
-                  }`}
-                  name="firstName"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.firstName}
-                />
-                {touched.firstName && errors.firstName && (
-                  <ValidationError err={errors.firstName} />
-                )}
-                <Form.Control
-                  type="text"
-                  placeholder="Last name"
-                  className={`input  ${
-                    touched.lastName && errors.lastName ? "pa-error" : ""
-                  }`}
-                  name="lastName"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.lastName}
-                />
-                {touched.lastName && errors.lastName && (
-                  <ValidationError err={errors.lastName} />
-                )}
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
-                  className={`input  ${
-                    touched.emailId && errors.emailId ? "pa-error" : ""
-                  }`}
+                  className={`input  ${touched.emailId && errors.emailId ? "pa-error" : ""
+                    }`}
                   name="emailId"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -142,9 +110,8 @@ function SignUp() {
                 <Form.Control
                   type="password"
                   placeholder="Enter password"
-                  className={`input  ${
-                    touched.password && errors.password ? "pa-error" : ""
-                  }`}
+                  className={`input  ${touched.password && errors.password ? "pa-error" : ""
+                    }`}
                   name="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -153,23 +120,29 @@ function SignUp() {
                 {touched.password && errors.password && (
                   <ValidationError err={errors.password} />
                 )}
-                <p
-                  className="mt-3"
+                <div
                   style={{
-                    color: "#5E6C84",
-                    fontSize: "12px",
-                    lineHeight: "1rem",
-                    marginTop: "0.5rem",
+                    width: "100%",
+                    marginTop: "1rem",
+                    fontSize: "0.8rem",
                   }}
                 >
-                  By signing up, I accept the
-                  <Link to="/terms"> Terms of Service</Link> and acknowledge the
-                  <Link to="/privacy"> Privacy Policy</Link> .
-                </p>
+                  <label className="d-flex align-items-center">
+                    <Field
+                      type="checkbox"
+                      name="rememberMe"
+                      checked={values.rememberMe}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="mr-2"
+                    />
+                    Remember me
+                  </label>
+                </div>
                 <Button
                   variant="primary"
                   block
-                  className="m-3"
+                  className="m-4  "
                   style={{
                     fontSize: "14px",
                   }}
@@ -177,7 +150,7 @@ function SignUp() {
                   type="submit"
                   onClick={handleSubmit}
                 >
-                  Sign Up
+                  Sign In
                 </Button>{" "}
                 <p>Or</p>
                 <Button
@@ -208,17 +181,17 @@ function SignUp() {
           }}
         </Formik>
         <Link
-          to="/signin"
+          to="/signup"
           style={{
             fontSize: "0.85rem",
             margin: "1rem 0",
           }}
         >
-          Already have an account? Sign In
+          Sign Up for new account
         </Link>
       </section>
     </div>
   );
 }
 
-export default SignUp;
+export default SignIn;
