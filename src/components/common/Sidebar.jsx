@@ -119,12 +119,9 @@ function Sidebar() {
             <Dropdown.Divider />
             <Dropdown.Item eventKey="4" onClick={async () => {
               const { error } = await userApi.signout();
-              if (error) {
-                console.log(error);
-              } else {
-                console.log("success");
+              if (!error) {
                 dispatch(signOut());
-              }
+              } 
             }}>Sign Out</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

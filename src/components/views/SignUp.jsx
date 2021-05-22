@@ -63,13 +63,11 @@ function SignUp() {
             setSubmitting(false);
 
             if (error) {
-              console.log(error);
               setMessageVisible({
                 isError: true,
                 message: error,
               });
             } else {
-              console.log("success");
               setMessageVisible({
                 isError: false,
                 message: `A verification link has been sent to ${values.emailId}`,
@@ -89,8 +87,6 @@ function SignUp() {
           }) => {
             return (
               <>
-                {/* {signUpStatus == "success" && <SuccessMessage message="A verification link has been sent!" />} */}
-                {/* {errors && <DangerMessage message="Please fill all mandatory fields!" />} */}
                 <h5
                   style={{
                     color: "rgb(94, 108, 132)",

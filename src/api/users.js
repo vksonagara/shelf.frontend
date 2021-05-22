@@ -16,7 +16,6 @@ const userApi = {
         },
       });
 
-      console.log(response);
 
       return { error: null };
     } catch (err) {

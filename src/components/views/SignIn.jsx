@@ -64,13 +64,11 @@ function SignIn() {
             setSubmitting(false);
 
             if (error) {
-              console.log(error);
               setMessageVisible({
                 isError: true,
                 message: error,
               });
             } else {
-              console.log("success");
               dispatch(signIn(data));
             }
           }}

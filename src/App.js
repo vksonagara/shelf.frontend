@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import userApi from "./api/users";
 import Sidebar from "./components/common/Sidebar";
 import Loader from "./components/common/Loader";
-// import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   const dispatch = useDispatch();
