@@ -80,6 +80,42 @@ const userApi = {
     } catch(err) {
       return {error: err.response.data.message}
     }
+  },
+  async createFolder(name) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${config.BASE_API_URL}/api/folders`,
+        data: {name},
+      });
+      return {error: null, data: response.data}
+    } catch(err) {
+      return {error: err.response.data.message}
+    }
+  },
+  async getFolders() {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `${config.BASE_API_URL}/api/folders`,
+        withCredentials: true,
+      });
+      return {error: null, data: response.data}
+    } catch(err) {
+      return {error: err.response.data.message}
+    }
+  },
+  async deletefolder(id) {
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `${config.BASE_API_URL}/api/folders/${id}`,
+        withCredentials: true,
+      });
+      return {error: null, data: response.data}
+    }catch(err) {
+      return {error: err.response.data.message}
+    }
   }
 };
 

@@ -102,9 +102,9 @@ a:hover {
 }
 
 .folder > div > div {
-    line-height: 1.1;
+  line-height: 1.1;
 }
-.folder-para1{
+.folder-para1 {
   margin: 0;
   font-size: 14px;
   width: 140px;
@@ -115,9 +115,9 @@ a:hover {
 }
 
 .folder-para2 {
-    margin: 0;
-    font-size: 11px;
-    margin-left: 0.5rem;
+  margin: 0;
+  font-size: 11px;
+  margin-left: 0.5rem;
 }
 
 #foldersContainer::-webkit-scrollbar {
@@ -129,44 +129,48 @@ a:hover {
   scrollbar-width: none; /* Firefox */
 }
 
-
-
 .notes {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-  
-  .notes > div {
-    display: flex;
-    align-items: center;
-  }
-  
-  .notes > div > div {
-      line-height: 1.1;
-  }
-  .notes-para1{
-    margin: 0;
-    font-size: 14px;
-    width: 140px;
-    margin-left: 0.5rem;
-    white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-  }
-  
-  .notes-para2 {
-      margin: 0;
-      font-size: 11px;
-      margin-left: 0.5rem;
-  }
-  
-  #notesContainer::-webkit-scrollbar {
-    display: none;
-  }
-  
-  #notesContainer {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.notes > div {
+  display: flex;
+  align-items: center;
+}
+
+.notes > div > div {
+  line-height: 1.1;
+}
+.notes-para1 {
+  margin: 0;
+  font-size: 14px;
+  width: 140px;
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.notes-para2 {
+  margin: 0;
+  font-size: 11px;
+  margin-left: 0.5rem;
+}
+
+#notesContainer::-webkit-scrollbar {
+  display: none;
+}
+
+#notesContainer {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.active-folder {
+  background-color: #8a8a40;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.25rem;
+}
