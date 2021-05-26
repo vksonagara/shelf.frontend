@@ -46,7 +46,7 @@ function NotesContainer() {
     <div
       style={{
         backgroundColor: "rgb(47 86 123)",
-        width: "380px",
+        width: "400px",
         height: "100vh",
         padding: "1rem 1rem",
         color: "white",
@@ -110,7 +110,6 @@ function NotesContainer() {
         }}
       >
       {notes.map((note) => {
-        console.log(note);
         return(
         <section className="notes">
         <div>

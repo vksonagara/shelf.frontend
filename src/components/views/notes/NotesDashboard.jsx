@@ -1,3 +1,4 @@
+import ContentContainer from "./ContentContainer";
 import FolderContainer from "./FolderContainer";
 import NotesContainer from "./NotesContainer";
 
@@ -13,6 +14,7 @@ function NotesDashboard() {
     >
       <FolderContainer />
       <NotesContainer />
+      <ContentContainer />
     </div>
   );
 }

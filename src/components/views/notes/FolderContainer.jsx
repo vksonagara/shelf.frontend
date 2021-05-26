@@ -72,7 +72,7 @@ function FolderContainer() {
   return (
     <div
       style={{
-        width: "280px",
+        width: "350px",
         height: "100vh",
         padding: "1rem 1rem",
         backgroundColor: "rgb(29 50 70)",

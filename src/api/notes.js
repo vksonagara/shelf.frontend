@@ -1,6 +1,5 @@
 import axios from "../api";
 import config from "../config";
-import constant from "../config/constant";
 
 // APIs for notes app
 const notesApi = {
@@ -61,8 +60,8 @@ const notesApi = {
         method: "POST",
         url: `${config.BASE_API_URL}/api/folders/${id}/notes`,
         data: {
-          title: constant.noteName,
-          content: ""
+          title: `New Note ${Math.ceil(Math.random() * 1000)}`,
+          content: "",
         },
         withCredentials: true,
       });
@@ -82,7 +81,7 @@ const notesApi = {
     } catch (err) {
       return { error: err.response.data.message };
     }
-  }
+  },
 };
 
 export default notesApi;
