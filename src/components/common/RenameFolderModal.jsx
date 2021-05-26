@@ -1,26 +1,33 @@
 import { Modal, Form, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { folderSchema } from "../../utils/ValidationUtil";
-import userApi from "../../api/users";
-import { useDispatch, useSelector } from "react-redux";
-import { createFolder } from "../../redux/folders";
+import notesApi from "../../api/notes";
+import { useDispatch } from "react-redux";
+import { renameFolder } from "../../redux/folders";
 
-function ModalDemo(prop) {
+// Modal for rename folder
+
+function RenameFolderModal(prop) {
   const dispatch = useDispatch();
   return (
-    <Modal show={prop.show} onHide={prop.handleClose} centered>
+    <Modal show={prop.show.value} onHide={prop.handleClose} centered>
       <Formik
         validationSchema={folderSchema}
         initialValues={{
           folderName: "",
         }}
-        onSubmit={async (values, {resetForm}) => {
-          const { data, error } = await userApi.createFolder(values.folderName);
-          if (error) {
-            console.log(error);
-          } else {
-            console.log(data);
-            dispatch(createFolder(data));
+        onSubmit={async (values, { resetForm }) => {
+          const { data, error } = await notesApi.renamefolder(
+            prop.show.id,
+            values.folderName
+          );
+          if (!error) {
+            dispatch(
+              renameFolder({
+                id: prop.show.id,
+                name: values.folderName,
+              })
+            );
           }
           resetForm({});
           prop.handleClose();
@@ -55,11 +62,11 @@ function ModalDemo(prop) {
                   variant="primary"
                   disabled={isSubmitting}
                   type="submit"
-                  onClick = {() => {
+                  onClick={() => {
                     handleSubmit();
                   }}
                 >
-                  Create New
+                  Rename Folder
                 </Button>
               </Modal.Footer>
             </>
@@ -70,4 +77,4 @@ function ModalDemo(prop) {
   );
 }
 
-export default ModalDemo;
+export default RenameFolderModal;

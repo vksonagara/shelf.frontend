@@ -1,5 +1,7 @@
 import Alert from "react-bootstrap/Alert";
 
+// Message Componet using Bootstrap
+
 function Message({ type, message }) {
   return (
     <Alert variant={type} className={`d-flex flex-column align-items-center`}>

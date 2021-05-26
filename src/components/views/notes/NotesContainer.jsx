@@ -1,26 +1,47 @@
 import React from "react";
-
+import {useEffect} from "react"
 import { Form, InputGroup, Badge, Dropdown } from "react-bootstrap";
-
+import notesApi from "../../../api/notes";
+import { createNote, getAllNotes, resetNotes} from "../../../redux/notes";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllFolders } from "../../../redux/folders";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-      href=""
-      ref={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(e);
+  <a
+    href=""
+    ref={ref}
+    onClick={(e) => {
+      e.preventDefault();
+      onClick(e);
+    }}
+  >
+    {/* Render custom icon here */}
+    <i
+      class="bi bi-three-dots-vertical"
+      style={{
+        color: "white",
       }}
-    >
-      {/* Render custom icon here */}
-      <i class="bi bi-three-dots-vertical" style= {{
-          color: "white",
-      }}></i>
-      {children}
-    </a>
-  ));
+    ></i>
+    {children}
+  </a>
+));
 
 function NotesContainer() {
+  const dispatch = useDispatch();
+  const { folders, currentFolderId } = useSelector((state) => state.folders);
+  const { notes, currentNoteId } = useSelector((state) => state.notes);
+
+  useEffect(() => {
+    if(currentFolderId) {
+      notesApi.getAllNotes(currentFolderId).then(({ error, data }) => {
+        if (!error) {
+          dispatch(getAllNotes(data));
+        }
+      });
+    }else {
+      dispatch(resetNotes())
+    }
+  }, [currentFolderId]);
   return (
     <div
       style={{
@@ -77,7 +98,7 @@ function NotesContainer() {
             fontWeight: "600",
           }}
         >
-          Folder
+          Notes
         </p>
       </div>
       {/* Notes container body  */}
@@ -88,26 +109,30 @@ function NotesContainer() {
           height: "calc(100vh - 170px)",
         }}
       >
+      {notes.map((note) => {
+        console.log(note);
+        return(
         <section className="notes">
+        <div>
+          <i class="bi bi-journal folder-icon"></i>
           <div>
-            <i class="bi bi-journal folder-icon"></i>
-            <div>
-              <p className="notes-para1">my docs</p>
-              <p className="notes-para2">5 min ago</p>
-            </div>
+            <p className="notes-para1">{note.title}</p>
+            <p className="notes-para2">{note.updatedAt}</p>
           </div>
-          <Dropdown>
-            <Dropdown.Toggle
-              as={CustomToggle}
-              id="dropdown-custom-components"
-            ></Dropdown.Toggle>
+        </div>
+        <Dropdown>
+          <Dropdown.Toggle
+            as={CustomToggle}
+            id="dropdown-custom-components"
+          ></Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item eventKey="1">Rename</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Delete</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </section>
+          <Dropdown.Menu>
+            <Dropdown.Item eventKey="1">Rename</Dropdown.Item>
+            <Dropdown.Item eventKey="2">Delete</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </section>
+      )})}
       </div>
       {/* notes container footer  */}
       <div
@@ -116,16 +141,35 @@ function NotesContainer() {
           height: "50px",
         }}
       >
-        <i className="bi bi-plus-circle mr-1 icon-20"></i>
-        <p
-          className="mb-0"
+        <div
+          className="d-flex align-items-center"
           style={{
-            fontSize: "14px",
-            fontWeight: "600",
+            cursor: "pointer",
+          }}
+          onClick={async () => {
+            const { data, error } = await notesApi.createnote(currentFolderId);
+            if (!error) {
+              dispatch(createNote(data));
+
+              const { data: folderData, error: folderError } = await notesApi.getFolders();
+
+              if (!folderError) {
+                dispatch(getAllFolders(folderData));
+              }
+            }
           }}
         >
-          New Note
-        </p>
+          <i className="bi bi-plus-circle mr-1 icon-20"></i>
+          <p
+            className="mb-0"
+            style={{
+              fontSize: "14px",
+              fontWeight: "600",
+            }}
+          >
+            New Note
+          </p>
+        </div>
       </div>
     </div>
   );

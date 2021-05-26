@@ -1,6 +1,7 @@
 import FolderContainer from "./FolderContainer";
 import NotesContainer from "./NotesContainer";
 
+// Dashboard for notes app
 function NotesDashboard() {
   return (
     <div
@@ -11,7 +12,7 @@ function NotesDashboard() {
       }}
     >
       <FolderContainer />
-      {/* Notes Container  */}
+      <NotesContainer />
     </div>
   );
 }

@@ -1,22 +1,17 @@
 import React from "react";
-
 import { useState, useEffect } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-
+import { Form, InputGroup, Badge, Dropdown } from "react-bootstrap";
+import CreateFolderModal from "../../common/CreateFolderModal";
+import notesApi from "../../../api/notes";
 import {
-  Form,
-  InputGroup,
-  Badge,
-  Dropdown,
-  Modal,
-  Button,
-} from "react-bootstrap";
+  getAllFolders,
+  deleteFolder,
+  changeCurrentFolder,
+} from "../../../redux/folders";
+import RenameFolderModal from "../../common/RenameFolderModal";
 
-import ModalDemo from "../../common/ModalDemo";
-
-import userApi from "../../../api/users";
-import { getAllFolders, deleteFolder, changeCurrentFolder } from "../../../redux/folders";
+// used Custom Toggle
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -39,16 +34,34 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 ));
 
 function FolderContainer() {
+  // State for create Folder modal
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // State for rename folder modal
+  const [showRenameModal, setRenameModal] = useState({
+    value: false,
+    id: "",
+  });
+  const handleRenameModalClose = (id) =>
+    setRenameModal({
+      value: false,
+      id: id,
+    });
+  const handleRenameModalShow = (id) =>
+    setRenameModal({
+      value: true,
+      id: id,
+    });
+
   const dispatch = useDispatch();
   const { folders, currentFolderId } = useSelector((state) => state.folders);
+  const { notes, currentNoteId } = useSelector((state) => state.notes);
 
+  // Using useEffect to get all folder data after rendor
   useEffect(() => {
-    userApi.getFolders().then(({ error, data }) => {
+    notesApi.getFolders().then(({ error, data }) => {
       if (error) {
         console.log(error);
       } else {
@@ -123,14 +136,21 @@ function FolderContainer() {
         }}
       >
         {folders.map((folder) => {
-            const {id} = folder;
+          const { id } = folder;
           return (
-            <section className={`folder ${folder.id == currentFolderId ? "active-folder" : ""}`} style= {{
+            <section
+              className={`folder ${
+                folder.id == currentFolderId ? "active-folder" : ""
+              }`}
+              style={{
                 cursor: "pointer",
-            }}>
-              <div onClick = {() => {   
+              }}
+            >
+              <div
+                onClick={() => {
                   dispatch(changeCurrentFolder(id));
-              }}>
+                }}
+              >
                 <i className="bi bi-folder folder-icon">
                   <Badge className="badge">{folder.notesCount}</Badge>
                 </i>
@@ -146,15 +166,21 @@ function FolderContainer() {
                 ></Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item eventKey="1">Rename</Dropdown.Item>
+                  <Dropdown.Item
+                    eventKey="1"
+                    onClick={() => {
+                      handleRenameModalShow(id);
+                    }}
+                  >
+                    Rename
+                  </Dropdown.Item>
                   <Dropdown.Item
                     eventKey="2"
                     onClick={async () => {
-                    console.log(id)
-                      const { data, error } = await userApi.deletefolder(id);
+                      const { data, error } = await notesApi.deletefolder(id);
                       if (error) {
                         console.log(error);
-                      } else{
+                      } else {
                         dispatch(deleteFolder(id));
                       }
                     }}
@@ -196,10 +222,17 @@ function FolderContainer() {
           </p>
         </div>
       </div>
-      <ModalDemo
+      {/* create folder modal  */}
+      <CreateFolderModal
         show={show}
         handleClose={handleClose}
         handleShow={handleShow}
+      />
+      {/* rename folder modal  */}
+      <RenameFolderModal
+        show={showRenameModal}
+        handleClose={handleRenameModalClose}
+        handleShow={handleRenameModalShow}
       />
     </div>
   );

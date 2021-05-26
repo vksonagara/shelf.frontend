@@ -1,10 +1,17 @@
+import { Link } from "react-router-dom";
+
+// App Logo
 function AppLogo() {
   return (
-    <h2 className  = "text-primary"
-    style= {{
-      margin: "2rem",
-      fontWeight: "bold"
-    }}>Shelf</h2>
+    <h2
+      className="text-primary"
+      style={{
+        margin: "2rem",
+        fontWeight: "bold",
+      }}
+    >
+      <Link to="/">Shelf</Link>
+    </h2>
   );
 }
 

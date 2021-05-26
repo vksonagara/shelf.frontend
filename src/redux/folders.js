@@ -5,6 +5,7 @@ export const foldersSlice = createSlice({
   initialState: { folders: [], currentFolderId: null },
   reducers: {
     getAllFolders: (state, action) => {
+      const { folders: _folders, currentFolderId } = state;
       const folderArr = action.payload.folders;
       let folders = folderArr.map((folder) => {
         return {
@@ -16,7 +17,8 @@ export const foldersSlice = createSlice({
       });
       return {
         folders,
-        currentFolderId: (folders[0] && folders[0].id) || null,
+        currentFolderId:
+          currentFolderId || (folders[0] && folders[0].id) || null,
       };
     },
     createFolder: (state, action) => {
@@ -60,10 +62,29 @@ export const foldersSlice = createSlice({
         currentFolderId: id,
       };
     },
+    renameFolder: (state, action) => {
+      const { id, name } = action.payload;
+      let { folders, currentFolderId } = state;
+      let newFolders = folders.map((folder) => {
+        if (folder.id == id) {
+          return { ...folder, name };
+        }
+        return folder;
+      });
+      return {
+        folders: newFolders,
+        currentFolderId,
+      };
+    },
   },
 });
 
-export const { getAllFolders, createFolder, deleteFolder, changeCurrentFolder } =
-  foldersSlice.actions;
+export const {
+  getAllFolders,
+  createFolder,
+  deleteFolder,
+  changeCurrentFolder,
+  renameFolder,
+} = foldersSlice.actions;
 
 export default foldersSlice.reducer;
