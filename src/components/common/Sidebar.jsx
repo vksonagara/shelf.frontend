@@ -53,7 +53,7 @@ function Menu() {
             overlay={<Tooltip id={`tooltip-right`}>{menu.title}</Tooltip>}
             key={index}
           >
-            <Link to={`${menu.title}`}>
+            <Link to={`${menu.link}`}>
               <div
                 className={`border-bottom d-flex justify-content-center icon-container  ${
                   activeMenuIndex == index ? "active-icon-container" : ""
@@ -106,7 +106,9 @@ function Sidebar() {
             {/* <img src="/images/person.svg" alt="" /> */}
             <i className="bi bi-person-circle icon-20"></i>
           </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu style = {{
+        zIndex: "100"
+      }}>
             <Link to="/setting">
               <Dropdown.Item eventKey="1" as="div">
                 Setting

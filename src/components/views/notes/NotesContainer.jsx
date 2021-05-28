@@ -1,10 +1,16 @@
 import React from "react";
-import {useEffect} from "react"
+import { useEffect } from "react";
 import { Form, InputGroup, Badge, Dropdown } from "react-bootstrap";
 import notesApi from "../../../api/notes";
-import { createNote, getAllNotes, resetNotes} from "../../../redux/notes";
+import {
+  createNote,
+  getAllNotes,
+  resetNotes,
+  deleteNote,
+  changeCurrentNote
+} from "../../../redux/notes";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllFolders } from "../../../redux/folders";
+import { changeCurrentFolder, getAllFolders } from "../../../redux/folders";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -32,14 +38,14 @@ function NotesContainer() {
   const { notes, currentNoteId } = useSelector((state) => state.notes);
 
   useEffect(() => {
-    if(currentFolderId) {
+    if (currentFolderId) {
       notesApi.getAllNotes(currentFolderId).then(({ error, data }) => {
         if (!error) {
           dispatch(getAllNotes(data));
         }
       });
-    }else {
-      dispatch(resetNotes())
+    } else {
+      dispatch(resetNotes());
     }
   }, [currentFolderId]);
   return (
@@ -109,29 +115,49 @@ function NotesContainer() {
           height: "calc(100vh - 170px)",
         }}
       >
-      {notes.map((note) => {
-        return(
-        <section className="notes">
-        <div>
-          <i class="bi bi-journal folder-icon"></i>
-          <div>
-            <p className="notes-para1">{note.title}</p>
-            <p className="notes-para2">{note.updatedAt}</p>
-          </div>
-        </div>
-        <Dropdown>
-          <Dropdown.Toggle
-            as={CustomToggle}
-            id="dropdown-custom-components"
-          ></Dropdown.Toggle>
+        {notes.map((note) => {
+          const { id } = note;
+          return (
+            <section className={`notes ${
+              id == currentNoteId ? "active-note" : ""
+            }`}>
+              <div  onClick={() => {
+                  dispatch(changeCurrentNote(note));
+                }}> 
+                <i class="bi bi-journal folder-icon"></i>
+                <div>
+                  <p className="notes-para1">{note.title}</p>
+                  <p className="notes-para2">{note.updatedAt}</p>
+                </div>
+              </div>
+              <Dropdown>
+                <Dropdown.Toggle
+                  as={CustomToggle}
+                  id="dropdown-custom-components"
+                ></Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item eventKey="1">Rename</Dropdown.Item>
-            <Dropdown.Item eventKey="2">Delete</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      </section>
-      )})}
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    eventKey="2"
+                    onClick={async () => {
+                      const { data, error } = await notesApi.deleteNote(id);
+                      if (!error) {
+                        dispatch(deleteNote(note));
+                        const { data: folderData, error: folderError } =
+                          await notesApi.getFolders();
+                        if (!folderError) {
+                          dispatch(getAllFolders(folderData));
+                        }
+                      }
+                    }}
+                  >
+                    Delete
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </section>
+          );
+        })}
       </div>
       {/* notes container footer  */}
       <div
@@ -150,7 +176,8 @@ function NotesContainer() {
             if (!error) {
               dispatch(createNote(data));
 
-              const { data: folderData, error: folderError } = await notesApi.getFolders();
+              const { data: folderData, error: folderError } =
+                await notesApi.getFolders();
 
               if (!folderError) {
                 dispatch(getAllFolders(folderData));

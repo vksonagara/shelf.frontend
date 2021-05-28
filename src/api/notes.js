@@ -60,7 +60,7 @@ const notesApi = {
         method: "POST",
         url: `${config.BASE_API_URL}/api/folders/${id}/notes`,
         data: {
-          title: `New Note ${Math.ceil(Math.random() * 1000)}`,
+          title: "",
           content: "",
         },
         withCredentials: true,
@@ -76,6 +76,45 @@ const notesApi = {
         method: "GET",
         url: `${config.BASE_API_URL}/api/folders/${id}/notes`,
         withCredentials: true,
+      });
+      return { error: null, data: response.data };
+    } catch (err) {
+      return { error: err.response.data.message };
+    }
+  },
+  async deleteNote(id) {
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `${config.BASE_API_URL}/api/notes/${id}`,
+        withCredentials: true,
+      });
+      return { error: null, data: response.data };
+    } catch (err) {
+      return { error: err.response.data.message };
+    }
+  },
+  async getDetailOfNote(noteId) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `${config.BASE_API_URL}/api/notes/${noteId}`,
+        withCredentials: true,
+      });
+      return { error: null, data: response.data };
+    } catch (err) {
+      return { error: err.response.data.message };
+    }
+  },
+  async updateNoteTitle({ noteId, title }) {
+    try {
+      const response = await axios({
+        method: "PATCH",
+        url: `${config.BASE_API_URL}/api/notes/${noteId}`,
+        withCredentials: true,
+        data: {
+          title,
+        },
       });
       return { error: null, data: response.data };
     } catch (err) {

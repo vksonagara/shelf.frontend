@@ -14,7 +14,9 @@ body {
 .icon-40 {
   font-size: 40px;
 }
-
+.icon-28 {
+  font-size: 28px;
+}
 .icon-24 {
   font-size: 24px;
   color: #007bff;
@@ -134,6 +136,7 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  cursor: pointer;
 }
 
 .notes > div {
@@ -173,4 +176,14 @@ a:hover {
   background-color: #8a8a40;
   border-radius: 0.25rem;
   padding: 0.25rem 0.25rem;
+}
+
+.active-note {
+  background-color: #8a8a40;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.25rem;
+}
+
+.hidden {
+  display: none;
 }

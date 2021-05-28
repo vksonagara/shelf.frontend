@@ -140,7 +140,7 @@ function FolderContainer() {
           return (
             <section
               className={`folder ${
-                folder.id == currentFolderId ? "active-folder" : ""
+                id == currentFolderId ? "active-folder" : ""
               }`}
               style={{
                 cursor: "pointer",
