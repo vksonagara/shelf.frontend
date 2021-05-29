@@ -1,13 +1,14 @@
 import axios from "../api";
 import config from "../config";
-import { signOut } from "../redux/auth";
+
+// Signup, Signin, verifyemail, getAccessToken, signOut  APIs
 
 const userApi = {
   async signup({ firstName, lastName, emailId, password }) {
     try {
       const response = await axios({
         method: "POST",
-        url: `${config.BASE_API_URL}/api/users/signup`,
+        url: `${config.BASE_API_URL}/api/users/sign-up`,
         data: {
           firstName,
           lastName,
@@ -15,7 +16,6 @@ const userApi = {
           password,
         },
       });
-
 
       return { error: null };
     } catch (err) {
@@ -44,9 +44,8 @@ const userApi = {
         data: {
           emailId,
           password,
-          rememberMe
+          rememberMe,
         },
-        withCredentials: true
       });
 
       return { error: null, data: response.data };
@@ -60,7 +59,6 @@ const userApi = {
       const response = await axios({
         method: "GET",
         url: `${config.BASE_API_URL}/api/users/refresh`,
-        withCredentials: true
       });
 
       return { error: null, data: response.data };
@@ -68,19 +66,18 @@ const userApi = {
       return { data: null, error: err.response.data.message };
     }
   },
-  
+
   async signout() {
     try {
       const response = await axios({
         method: "POST",
         url: `${config.BASE_API_URL}/api/users/sign-out`,
-        withCredentials: true
       });
-      return {error: null, data: response.data}
-    } catch(err) {
-      return {error: err.response.data.message}
+      return { error: null, data: response.data };
+    } catch (err) {
+      return { error: err.response.data.message };
     }
-  }
+  },
 };
 
 export default userApi;

@@ -97,8 +97,9 @@ function SignIn() {
                 <Form.Control
                   type="email"
                   placeholder="Enter email"
-                  className={`input  ${touched.emailId && errors.emailId ? "pa-error" : ""
-                    }`}
+                  className={`input  ${
+                    touched.emailId && errors.emailId ? "pa-error" : ""
+                  }`}
                   name="emailId"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -110,8 +111,9 @@ function SignIn() {
                 <Form.Control
                   type="password"
                   placeholder="Enter password"
-                  className={`input  ${touched.password && errors.password ? "pa-error" : ""
-                    }`}
+                  className={`input  ${
+                    touched.password && errors.password ? "pa-error" : ""
+                  }`}
                   name="password"
                   onChange={handleChange}
                   onBlur={handleBlur}

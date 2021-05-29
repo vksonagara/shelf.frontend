@@ -13,4 +13,8 @@ const signInSchema = Yup.object({
   password: Yup.string().min(4).max(64).required().label("Password"),
 });
 
-export { signUpSchema, signInSchema };
+const folderSchema = Yup.object({
+  folderName: Yup.string().min(3).max(32).required().label("Folder Name"),
+})
+
+export { signUpSchema, signInSchema, folderSchema};

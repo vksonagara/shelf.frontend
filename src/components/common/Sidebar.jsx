@@ -6,6 +6,7 @@ import userApi from "../../api/users";
 import { useDispatch } from "react-redux";
 import { signOut } from "../../redux/auth";
 
+// Special Logo for only Sidebar
 function Logo() {
   return (
     <div
@@ -21,7 +22,7 @@ function Logo() {
         style={{
           color: "black",
           fontWeight: "700",
-          fontSize: "21px"
+          fontSize: "21px",
         }}
       >
         Shelf
@@ -29,6 +30,8 @@ function Logo() {
     </div>
   );
 }
+
+// Menu Items for sidebar
 
 function Menu() {
   const [activeMenuIndex, setActiveMenuIndex] = useState(0);
@@ -50,10 +53,11 @@ function Menu() {
             overlay={<Tooltip id={`tooltip-right`}>{menu.title}</Tooltip>}
             key={index}
           >
-            <Link to={`${menu.title}`}>
+            <Link to={`${menu.link}`}>
               <div
-                className={`border-bottom d-flex justify-content-center icon-container  ${activeMenuIndex == index ? "active-icon-container" : ""
-                  }`}
+                className={`border-bottom d-flex justify-content-center icon-container  ${
+                  activeMenuIndex == index ? "active-icon-container" : ""
+                }`}
                 style={{
                   width: "100%",
                   cursor: "pointer",
@@ -66,8 +70,9 @@ function Menu() {
                   <img src={menu.iconUrl} />
                 ) : (
                   <i
-                    className={`${menu.iconClass} ${activeMenuIndex == index ? "active-icon" : ""
-                      }`}
+                    className={`${menu.iconClass} ${
+                      activeMenuIndex == index ? "active-icon" : ""
+                    }`}
                   ></i>
                 )}
               </div>
@@ -79,6 +84,7 @@ function Menu() {
   );
 }
 
+// Sidebar Componet
 function Sidebar() {
   const dispatch = useDispatch();
   return (
@@ -86,7 +92,8 @@ function Sidebar() {
       style={{
         height: "100vh",
         maxWidth: "75px",
-        position: "fixed"
+        position: "fixed",
+        zIndex: "10"
       }}
       className="bg-light d-flex flex-column justify-content-between"
     >
@@ -117,12 +124,17 @@ function Sidebar() {
               </Dropdown.Item>
             </Link>
             <Dropdown.Divider />
-            <Dropdown.Item eventKey="4" onClick={async () => {
-              const { error } = await userApi.signout();
-              if (!error) {
-                dispatch(signOut());
-              } 
-            }}>Sign Out</Dropdown.Item>
+            <Dropdown.Item
+              eventKey="4"
+              onClick={async () => {
+                const { error } = await userApi.signout();
+                if (!error) {
+                  dispatch(signOut());
+                }
+              }}
+            >
+              Sign Out
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </div>
