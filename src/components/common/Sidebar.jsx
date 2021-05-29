@@ -93,6 +93,7 @@ function Sidebar() {
         height: "100vh",
         maxWidth: "75px",
         position: "fixed",
+        zIndex: "10"
       }}
       className="bg-light d-flex flex-column justify-content-between"
     >
@@ -106,9 +107,7 @@ function Sidebar() {
             {/* <img src="/images/person.svg" alt="" /> */}
             <i className="bi bi-person-circle icon-20"></i>
           </Dropdown.Toggle>
-          <Dropdown.Menu style = {{
-        zIndex: "100"
-      }}>
+          <Dropdown.Menu>
             <Link to="/setting">
               <Dropdown.Item eventKey="1" as="div">
                 Setting

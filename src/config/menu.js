@@ -2,7 +2,7 @@ const Menus = [
   {
     title: "Note",
     iconClass: "bi bi-journal icon-24 p-2 m-1",
-    link: "note"
+    link: "notes"
   },
   {
     title: "Todo",
