@@ -7,7 +7,7 @@ import {
   getAllNotes,
   resetNotes,
   deleteNote,
-  changeCurrentNote
+  changeCurrentNote,
 } from "../../../redux/notes";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrentFolder, getAllFolders } from "../../../redux/folders";
@@ -118,12 +118,14 @@ function NotesContainer() {
         {notes.map((note) => {
           const { id } = note;
           return (
-            <section className={`notes ${
-              id == currentNoteId ? "active-note" : ""
-            }`}>
-              <div  onClick={() => {
+            <section
+              className={`notes ${id == currentNoteId ? "active-note" : ""}`}
+            >
+              <div
+                onClick={() => {
                   dispatch(changeCurrentNote(note));
-                }}> 
+                }}
+              >
                 <i class="bi bi-journal folder-icon"></i>
                 <div>
                   <p className="notes-para1">{note.title}</p>

@@ -11,11 +11,11 @@ function RenameFolderModal(prop) {
   const dispatch = useDispatch();
   const { folders, currentFolderId } = useSelector((state) => state.folders);
   let currentFolderName = folders.filter((folder) => {
-    if(folder.id == prop.show.id) {
+    if (folder.id == prop.show.id) {
       return folder.name;
     }
-  })
-  if(currentFolderName[0] && currentFolderName[0].name) {
+  });
+  if (currentFolderName[0] && currentFolderName[0].name) {
     currentFolderName = currentFolderName[0].name;
   }
   return (
@@ -65,6 +65,16 @@ function RenameFolderModal(prop) {
                   onBlur={handleBlur}
                   value={values.folderName}
                 />
+                {touched.folderName && errors.folderName && (
+                  <p
+                    className="m-0 p-0 text-danger"
+                    style={{
+                      fontSize: "11px",
+                    }}
+                  >
+                    {errors.folderName}
+                  </p>
+                )}
               </Modal.Body>
               <Modal.Footer>
                 <Button

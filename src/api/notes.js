@@ -20,7 +20,6 @@ const notesApi = {
       const response = await axios({
         method: "GET",
         url: `${config.BASE_API_URL}/api/folders`,
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {
@@ -32,7 +31,6 @@ const notesApi = {
       const response = await axios({
         method: "DELETE",
         url: `${config.BASE_API_URL}/api/folders/${id}`,
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {
@@ -47,7 +45,6 @@ const notesApi = {
         data: {
           name,
         },
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {
@@ -63,7 +60,6 @@ const notesApi = {
           title: "",
           content: "",
         },
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {
@@ -75,7 +71,6 @@ const notesApi = {
       const response = await axios({
         method: "GET",
         url: `${config.BASE_API_URL}/api/folders/${id}/notes`,
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {
@@ -87,7 +82,6 @@ const notesApi = {
       const response = await axios({
         method: "DELETE",
         url: `${config.BASE_API_URL}/api/notes/${id}`,
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {
@@ -99,7 +93,6 @@ const notesApi = {
       const response = await axios({
         method: "GET",
         url: `${config.BASE_API_URL}/api/notes/${noteId}`,
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {
@@ -111,7 +104,6 @@ const notesApi = {
       const response = await axios({
         method: "PATCH",
         url: `${config.BASE_API_URL}/api/notes/${noteId}`,
-        withCredentials: true,
         data: {
           title,
         },

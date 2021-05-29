@@ -46,7 +46,6 @@ const userApi = {
           password,
           rememberMe,
         },
-        withCredentials: true,
       });
 
       return { error: null, data: response.data };
@@ -60,7 +59,6 @@ const userApi = {
       const response = await axios({
         method: "GET",
         url: `${config.BASE_API_URL}/api/users/refresh`,
-        withCredentials: true,
       });
 
       return { error: null, data: response.data };
@@ -74,7 +72,6 @@ const userApi = {
       const response = await axios({
         method: "POST",
         url: `${config.BASE_API_URL}/api/users/sign-out`,
-        withCredentials: true,
       });
       return { error: null, data: response.data };
     } catch (err) {

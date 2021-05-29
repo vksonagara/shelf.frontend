@@ -24,6 +24,7 @@ export const interceptor = (store) => {
   );
 
   axios.interceptors.request.use((config) => {
+    config.withCredentials = true;
     const { auth } = store.getState("auth");
     const accessToken = auth.accessToken;
 

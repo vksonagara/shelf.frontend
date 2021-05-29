@@ -22,7 +22,7 @@ function CreateFolderModal(prop) {
           );
           if (!error) {
             dispatch(createFolder(data));
-           }
+          }
           resetForm({});
           prop.handleClose();
         }}
@@ -52,13 +52,13 @@ function CreateFolderModal(prop) {
                 />
                 {touched.folderName && errors.folderName && (
                   <p
-                  className="m-0 p-0 text-danger"
-                  style={{
-                    fontSize: "11px",
-                  }}
-                >
-                  {errors.folderName}
-                </p>
+                    className="m-0 p-0 text-danger"
+                    style={{
+                      fontSize: "11px",
+                    }}
+                  >
+                    {errors.folderName}
+                  </p>
                 )}
               </Modal.Body>
               <Modal.Footer>
