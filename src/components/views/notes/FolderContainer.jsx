@@ -10,6 +10,7 @@ import {
   changeCurrentFolder,
 } from "../../../redux/folders";
 import RenameFolderModal from "../../common/RenameFolderModal";
+import DeleteModal from "../../common/DeleteModal";
 
 // used Custom Toggle
 
@@ -55,6 +56,22 @@ function FolderContainer() {
       id: id,
     });
 
+  // State for delete modal
+  const [showDeleteModal, setDeleteModal] = useState({
+    value: false,
+    id: "",
+  });
+  const handleDeleteModalClose = (id) =>
+    setDeleteModal({
+      value: false,
+      id: id,
+    });
+  const handleDeleteModalShow = (id) =>
+    setDeleteModal({
+      value: true,
+      id: id,
+    });
+
   const dispatch = useDispatch();
   const { folders, currentFolderId } = useSelector((state) => state.folders);
   const { notes, currentNoteId } = useSelector((state) => state.notes);
@@ -72,7 +89,6 @@ function FolderContainer() {
   return (
     <div
       style={{
-        width: "350px",
         height: "100vh",
         padding: "1rem 1rem",
         backgroundColor: "rgb(29 50 70)",
@@ -80,6 +96,7 @@ function FolderContainer() {
         display: "flex",
         flexDirection: "column",
       }}
+      className="folder-container"
     >
       {/* Folder Container Header  */}
       <div
@@ -104,10 +121,9 @@ function FolderContainer() {
               <Form.Control
                 as="select"
                 custom
-                className="input"
+                className="input folder-container-sort"
                 style={{
                   margin: "0",
-                  width: "140px",
                 }}
               >
                 <option>Sort By</option>
@@ -124,7 +140,7 @@ function FolderContainer() {
             fontWeight: "600",
           }}
         >
-          On My Shelf
+          Folders
         </p>
       </div>
       {/* folder container body  */}
@@ -176,13 +192,8 @@ function FolderContainer() {
                   </Dropdown.Item>
                   <Dropdown.Item
                     eventKey="2"
-                    onClick={async () => {
-                      const { data, error } = await notesApi.deletefolder(id);
-                      if (error) {
-                        console.log(error);
-                      } else {
-                        dispatch(deleteFolder(id));
-                      }
+                    onClick={() => {
+                      handleDeleteModalShow(id);
                     }}
                   >
                     Delete
@@ -233,6 +244,11 @@ function FolderContainer() {
         show={showRenameModal}
         handleClose={handleRenameModalClose}
         handleShow={handleRenameModalShow}
+      />
+      <DeleteModal
+        show={showDeleteModal}
+        handleClose={handleDeleteModalClose}
+        handleShow={handleDeleteModalShow}
       />
     </div>
   );

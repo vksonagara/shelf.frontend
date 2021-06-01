@@ -91,11 +91,10 @@ function Sidebar() {
     <div
       style={{
         height: "100vh",
-        maxWidth: "75px",
         position: "fixed",
-        zIndex: "10"
+        zIndex: "10",
       }}
-      className="bg-light d-flex flex-column justify-content-between"
+      className="bg-light d-flex flex-column justify-content-between sidebar-container"
     >
       <div>
         <Logo />

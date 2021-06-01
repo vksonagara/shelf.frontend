@@ -96,7 +96,10 @@ const notesApi = {
       });
       return { error: null, data: response.data };
     } catch (err) {
-      return { error: err.response.data.message };
+      return {
+        error:
+          (err.response && err.response.data.message) || "Something went wrong",
+      };
     }
   },
   async updateNoteTitle({ noteId, title }) {
@@ -111,6 +114,24 @@ const notesApi = {
       return { error: null, data: response.data };
     } catch (err) {
       return { error: err.response.data.message };
+    }
+  },
+  async updateNoteContent({ noteId, content }) {
+    try {
+      const response = await axios({
+        method: "PATCH",
+        url: `${config.BASE_API_URL}/api/notes/${noteId}`,
+        data: {
+          content,
+        },
+      });
+
+      return { error: null, data: response.data };
+    } catch (err) {
+      return {
+        error:
+          (err.response && err.response.data.message) || "Something went wrong",
+      };
     }
   },
 };

@@ -52,13 +52,13 @@ function NotesContainer() {
     <div
       style={{
         backgroundColor: "rgb(47 86 123)",
-        width: "400px",
         height: "100vh",
         padding: "1rem 1rem",
         color: "white",
         display: "flex",
         flexDirection: "column",
       }}
+      className="notes-container"
     >
       {/* notes Container Header  */}
       <div
@@ -84,7 +84,7 @@ function NotesContainer() {
               <Form.Control
                 as="select"
                 custom
-                className="input"
+                className="input notes-container-sort"
                 style={{
                   margin: "0",
                   width: "140px",

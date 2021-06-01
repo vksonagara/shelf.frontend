@@ -187,3 +187,74 @@ a:hover {
 .hidden {
   display: none;
 }
+
+.sidebar-container {
+  width: 5%;
+}
+.notes-dashboard {
+  left: 5%;
+}
+.folder-container {
+  width: 18%;
+}
+
+.folder-container-sort {
+  width: 140px;
+}
+
+.notes-container {
+  width: 18%;
+}
+
+.notes-container-sort {
+  width: 140px;
+}
+
+.content-container {
+  width: 59%;
+}
+
+.demo-editor {
+  height: 45rem !important;
+  overflow: auto !important;
+}
+
+@media screen and (max-width: 1366px) {
+  .sidebar-container {
+    width: 7%;
+  }
+  .notes-dashboard {
+    left: 7%;
+  }
+  .folder-container {
+    width: 24%;
+  }
+  .folder-para1 {
+    width: 80px;
+  }
+  .folder-container-sort {
+    width: 80px;
+  }
+  .notes-container {
+    width: 24%;
+  }
+  .notes-para1 {
+    width: 80px;
+  }
+  .notes-container-sort {
+    width: 80px;
+  }
+  .content-container {
+    width: 45%;
+  }
+}
+
+i:hover {
+  cursor: pointer;
+}
+
+#noteTitle {
+  font-size: larger;
+  outline: none;
+  border-bottom: 1px solid gray;
+}
