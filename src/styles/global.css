@@ -209,14 +209,20 @@ a:hover {
 .notes-container-sort {
   width: 140px;
 }
-
-.content-container {
-  width: 59%;
+.new-content-container {
+  width: 95%;
 }
-
 .demo-editor {
   height: 45rem !important;
   overflow: auto !important;
+}
+
+.demo-wrapper {
+  width: 80%;
+}
+
+.new-demo-wrapper {
+  width: 95% !important;
 }
 
 @media screen and (max-width: 1366px) {
@@ -244,8 +250,9 @@ a:hover {
   .notes-container-sort {
     width: 80px;
   }
-  .content-container {
-    width: 45%;
+  .demo-editor {
+    height: 35rem !important;
+    overflow: auto !important;
   }
 }
 
@@ -257,4 +264,41 @@ i:hover {
   font-size: larger;
   outline: none;
   border-bottom: 1px solid gray;
+}
+
+.notes-container {
+  background-color: rgb(47 86 123);
+  height: 100vh;
+  padding: 1rem 1rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.5s;
+}
+
+.animation {
+  /* animation-name: fadeIn;
+  animation-duration: 4s;
+  display: none !important; */
+  width: 0 !important;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

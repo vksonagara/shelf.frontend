@@ -96,6 +96,31 @@ function Sidebar() {
       }}
       className="bg-light d-flex flex-column justify-content-between sidebar-container"
     >
+      <i
+        className="bi bi-caret-right-square icon-28 collapse-icon"
+        style={{
+          position: "absolute",
+          right: "-10px",
+          color: "black",
+          top: "40%",
+          display: "none",
+        }}
+        onClick={(e) => {
+          document
+            .querySelector(".notes-container")
+            .classList.remove("animation");
+          document
+            .querySelector(".folder-container")
+            .classList.remove("animation");
+          document
+            .querySelector(".content-container")
+            .classList.remove("new-content-container");
+          e.target.style.display = "none";
+          document
+            .querySelector(".demo-wrapper")
+            .classList.remove("new-demo-wrapper");
+        }}
+      ></i>
       <div>
         <Logo />
         <Menu />

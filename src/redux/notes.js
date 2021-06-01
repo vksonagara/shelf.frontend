@@ -37,10 +37,12 @@ export const notesSlice = createSlice({
     },
     resetNotes: (state, action) => {
       return {
-        notes: [], currentNoteId: null, currentNoteTitle: null,
-      }
+        notes: [],
+        currentNoteId: null,
+        currentNoteTitle: null,
+      };
     },
-    deleteNote: (state, action) =>{
+    deleteNote: (state, action) => {
       const deleteNote = action.payload;
       console.log(deleteNote);
       let { notes, currentNoteId, currentNoteTitle } = state;
@@ -55,7 +57,7 @@ export const notesSlice = createSlice({
       return {
         notes: newNotes,
         currentNoteId,
-        currentNoteTitle
+        currentNoteTitle,
       };
     },
     changeCurrentNote: (state, action) => {
@@ -84,9 +86,26 @@ export const notesSlice = createSlice({
         currentNoteTitle: title,
       };
     },
-  }
+    getAllArchivedNotes: (state, action) => {
+      const notes = action.payload.notes;
+      console.log(notes);
+      return {
+        notes,
+        currentNoteId: (notes[0] && notes[0]._id) || null,
+        currentNoteTitle: (notes[0] && notes[0].title) || null,
+      };
+    },
+  },
 });
 
-export const { createNote, getAllNotes, resetNotes, deleteNote, changeCurrentNote, updateNote} = notesSlice.actions;
+export const {
+  createNote,
+  getAllNotes,
+  resetNotes,
+  deleteNote,
+  changeCurrentNote,
+  updateNote,
+  getAllArchivedNotes,
+} = notesSlice.actions;
 
 export default notesSlice.reducer;

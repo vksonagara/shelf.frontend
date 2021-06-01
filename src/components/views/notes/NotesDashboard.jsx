@@ -18,6 +18,28 @@ function NotesDashboard() {
     >
       <FolderContainer />
       {currentFolderId && <NotesContainer />}
+      {!currentFolderId && (
+        <div
+          className="d-flex align-items-center justify-content-center flex-column"
+          style={{
+            width: "77%",
+          }}
+        >
+          <i class="bi bi-folder-plus icon-28"></i>
+          <h5>Please Create a Folder</h5>
+        </div>
+      )}
+      {currentFolderId && !currentNoteId && (
+        <div
+          className="d-flex align-items-center justify-content-center flex-column"
+          style={{
+            width: "59%",
+          }}
+        >
+          <i class="bi bi-journal-plus icon-28"></i>
+          <h5>Please Create a Note</h5>
+        </div>
+      )}
       {currentNoteId && currentFolderId && <ContentContainer />}
     </div>
   );

@@ -54,8 +54,8 @@ function TitleInput() {
       <div
         style={{
           // backgroundColor: "rgb(0, 79, 154)",
-          padding: "1rem 1rem",
-          width: "70%",
+          padding: "1rem 0",
+          width: "80%",
           margin: "0 auto",
         }}
       >

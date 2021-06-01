@@ -8,6 +8,7 @@ import {
   resetNotes,
   deleteNote,
   changeCurrentNote,
+  getAllArchivedNotes,
 } from "../../../redux/notes";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCurrentFolder, getAllFolders } from "../../../redux/folders";
@@ -37,8 +38,24 @@ function NotesContainer() {
   const { folders, currentFolderId } = useSelector((state) => state.folders);
   const { notes, currentNoteId } = useSelector((state) => state.notes);
 
+  function changeContainerState() {
+    document.querySelector(".notes-container").classList.add("animation");
+    document.querySelector(".folder-container").classList.add("animation");
+    document
+      .querySelector(".content-container")
+      .classList.add("new-content-container");
+    document.querySelector(".collapse-icon").style.display = "";
+    document.querySelector(".demo-wrapper").classList.add("new-demo-wrapper");
+  }
+
   useEffect(() => {
-    if (currentFolderId) {
+    if (currentFolderId == "archive") {
+      notesApi.getAllArchivedNotes().then(({ error, data }) => {
+        if (!error) {
+          dispatch(getAllArchivedNotes(data));
+        }
+      });
+    } else if (currentFolderId) {
       notesApi.getAllNotes(currentFolderId).then(({ error, data }) => {
         if (!error) {
           dispatch(getAllNotes(data));
@@ -49,17 +66,19 @@ function NotesContainer() {
     }
   }, [currentFolderId]);
   return (
-    <div
-      style={{
-        backgroundColor: "rgb(47 86 123)",
-        height: "100vh",
-        padding: "1rem 1rem",
-        color: "white",
-        display: "flex",
-        flexDirection: "column",
-      }}
-      className="notes-container"
-    >
+    <div className="notes-container">
+      {currentNoteId && (
+        <i
+          class="bi bi-caret-left-square icon-28"
+          style={{
+            position: "absolute",
+            right: "-10px",
+            color: "black",
+            top: "40%",
+          }}
+          onClick={changeContainerState}
+        ></i>
+      )}
       {/* notes Container Header  */}
       <div
         style={{

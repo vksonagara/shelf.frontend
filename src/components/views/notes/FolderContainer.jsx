@@ -79,9 +79,7 @@ function FolderContainer() {
   // Using useEffect to get all folder data after rendor
   useEffect(() => {
     notesApi.getFolders().then(({ error, data }) => {
-      if (error) {
-        console.log(error);
-      } else {
+      if (!error) {
         dispatch(getAllFolders(data));
       }
     });
@@ -151,6 +149,53 @@ function FolderContainer() {
           height: "calc(100vh - 170px)",
         }}
       >
+        <section
+          className={`folder ${
+            "archive" == currentFolderId ? "active-folder" : ""
+          }`}
+          style={{
+            cursor: "pointer",
+          }}
+        >
+          <div
+            onClick={async () => {
+              dispatch(changeCurrentFolder("archive"));
+            }}
+          >
+            <i className="bi bi-folder folder-icon">
+              <Badge className="badge"></Badge>
+            </i>
+            <div>
+              <p className="folder-para1">Archive</p>
+              <p className="folder-para2"></p>
+            </div>
+          </div>
+          <Dropdown>
+            <Dropdown.Toggle
+              as={CustomToggle}
+              id="dropdown-custom-components"
+            ></Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item
+                eventKey="1"
+                onClick={() => {
+                  // handleRenameModalShow(id);
+                }}
+              >
+                Delete All Archived notes
+              </Dropdown.Item>
+              <Dropdown.Item
+                eventKey="1"
+                onClick={() => {
+                  // handleRenameModalShow(id);
+                }}
+              >
+                Restore All Archived notes
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </section>
         {folders.map((folder) => {
           const { id } = folder;
           return (

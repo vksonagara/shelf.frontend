@@ -134,6 +134,21 @@ const notesApi = {
       };
     }
   },
+  async getAllArchivedNotes() {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `${config.BASE_API_URL}/api/archive/notes`,
+      });
+
+      return { error: null, data: response.data };
+    } catch (err) {
+      return {
+        error:
+          (err.response && err.response.data.message) || "Something went wrong",
+      };
+    }
+  },
 };
 
 export default notesApi;

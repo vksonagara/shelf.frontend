@@ -2,6 +2,7 @@ import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import notesApi from "../../api/notes";
 import { deleteFolder } from "../../redux/folders";
+import { resetNotes } from "../../redux/notes";
 
 function DeleteModal(prop) {
   const dispatch = useDispatch();

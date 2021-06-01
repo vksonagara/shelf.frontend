@@ -39,14 +39,16 @@ function NoteEditor() {
   useEffect(() => {
     if (currentNoteId) {
       notesApi.getDetailOfNote(currentNoteId).then((data) => {
-        const blocksFromHtml = htmlToDraft(data.data.note.content);
-        const { contentBlocks, entityMap } = blocksFromHtml;
-        const contentState = ContentState.createFromBlockArray(
-          contentBlocks,
-          entityMap
-        );
-        const editorNewState = EditorState.createWithContent(contentState);
-        setEditorState(editorNewState);
+        if (data.data) {
+          const blocksFromHtml = htmlToDraft(data.data.note.content);
+          const { contentBlocks, entityMap } = blocksFromHtml;
+          const contentState = ContentState.createFromBlockArray(
+            contentBlocks,
+            entityMap
+          );
+          const editorNewState = EditorState.createWithContent(contentState);
+          setEditorState(editorNewState);
+        }
       });
     } else {
       setEditorState(EditorState.createEmpty());
@@ -56,12 +58,8 @@ function NoteEditor() {
   return (
     <div
       style={{
-        width: "70%",
         padding: "1rem 0",
-        margin: "auto",
-        maxHeight: "80vh !important",
         overflow: "hidden",
-        // overflowY: "scroll",
         display: "flex",
         justifyContent: "center",
       }}
@@ -71,6 +69,7 @@ function NoteEditor() {
         onEditorStateChange={onEditorStateChange}
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"
+        toolbarClassName="demo-toolbar"
       />
     </div>
   );
