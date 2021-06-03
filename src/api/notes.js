@@ -149,6 +149,62 @@ const notesApi = {
       };
     }
   },
+  async getDetailOfArchivedNote(noteId) {
+    try {
+      const response = await axios({
+        method: "GET",
+        url: `${config.BASE_API_URL}/api/archive/notes/${noteId}`,
+      });
+      return { error: null, data: response.data };
+    } catch (err) {
+      return {
+        error:
+          (err.response && err.response.data.message) || "Something went wrong",
+      };
+    }
+  },
+  async deleteArchivedNote(noteId) {
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `${config.BASE_API_URL}/api/archive/notes/${noteId}`,
+      });
+      return { error: null, data: response.data };
+    } catch (err) {
+      return {
+        error:
+          (err.response && err.response.data.message) || "Something went wrong",
+      };
+    }
+  },
+  async restoreArchivedNote({ noteId, folderId }) {
+    try {
+      const response = await axios({
+        method: "PATCH",
+        url: `${config.BASE_API_URL}/api/archive/notes/${noteId}?folderId=${folderId}`,
+      });
+      return { error: null, data: response.data };
+    } catch (err) {
+      return {
+        error:
+          (err.response && err.response.data.message) || "Something went wrong",
+      };
+    }
+  },
+  async moveNote({ noteId, folderId }) {
+    try {
+      const response = await axios({
+        method: "PATCH",
+        url: `${config.BASE_API_URL}/api/notes/${noteId}`,
+        data: {
+          folderId,
+        },
+      });
+      return { error: null, data: response.data };
+    } catch (err) {
+      return { error: err.response.data.message };
+    }
+  },
 };
 
 export default notesApi;

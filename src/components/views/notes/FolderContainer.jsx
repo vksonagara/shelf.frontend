@@ -291,6 +291,7 @@ function FolderContainer() {
         handleShow={handleRenameModalShow}
       />
       <DeleteModal
+        for="folder"
         show={showDeleteModal}
         handleClose={handleDeleteModalClose}
         handleShow={handleDeleteModalShow}

@@ -3,6 +3,7 @@ import { Form, InputGroup, FormControl } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import notesApi from "../../../api/notes";
 import { updateNote } from "../../../redux/notes";
+import DeleteModal from "../../common/DeleteModal";
 import NoteEditor from "./NoteEditor";
 
 function TitleInput() {
@@ -71,24 +72,26 @@ function TitleInput() {
             id="noteTitle"
             ref={noteTitleRef}
           />
-          <InputGroup.Prepend
-            style={{
-              cursor: "pointer",
-            }}
-            className={`${!isVisible && "hidden"}`}
-            onClick={() => {
-              editNoteName();
-            }}
-          >
-            <InputGroup.Text>
-              <i
-                className="bi bi-pencil"
-                style={{
-                  color: "black",
-                }}
-              ></i>
-            </InputGroup.Text>
-          </InputGroup.Prepend>
+          {currentFolderId !== "archive" && (
+            <InputGroup.Prepend
+              style={{
+                cursor: "pointer",
+              }}
+              className={`${!isVisible && "hidden"}`}
+              onClick={() => {
+                editNoteName();
+              }}
+            >
+              <InputGroup.Text>
+                <i
+                  className="bi bi-pencil"
+                  style={{
+                    color: "black",
+                  }}
+                ></i>
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+          )}
           <InputGroup.Prepend
             style={{
               cursor: "pointer",
@@ -122,6 +125,38 @@ function TitleInput() {
 }
 
 function ContentContainer() {
+  const { folders, currentFolderId } = useSelector((state) => state.folders);
+  const { notes, currentNoteId } = useSelector((state) => state.notes);
+  // State for delete modal
+  const [showDeleteModal, setDeleteModal] = useState({
+    value: false,
+    id: "",
+  });
+  const handleDeleteModalClose = (id) =>
+    setDeleteModal({
+      value: false,
+      id: id,
+    });
+  const handleDeleteModalShow = (id) =>
+    setDeleteModal({
+      value: true,
+      id: id,
+    });
+  // state for archive modal
+  const [showArchiveDeleteModal, setArchiveDeleteModal] = useState({
+    value: false,
+    id: "",
+  });
+  const handleArchiveDeleteModalClose = (id) =>
+    setArchiveDeleteModal({
+      value: false,
+      id: id,
+    });
+  const handleArchiveDeleteModalShow = (id) =>
+    setArchiveDeleteModal({
+      value: true,
+      id: id,
+    });
   return (
     <div className="content-container">
       <header
@@ -132,7 +167,14 @@ function ContentContainer() {
         className="bg-primary d-flex justify-content-between align-items-center"
       >
         <div>
-          <i className="bi bi-trash icon-20"></i>
+          <i
+            className="bi bi-trash icon-20"
+            onClick={() => {
+              currentFolderId == "archive"
+                ? handleArchiveDeleteModalShow(currentNoteId)
+                : handleDeleteModalShow(currentNoteId);
+            }}
+          ></i>
           <i className="bi bi-download icon-20 ml-4"></i>
         </div>
 
@@ -161,6 +203,18 @@ function ContentContainer() {
       </header>
       <TitleInput />
       <NoteEditor />
+      <DeleteModal
+        for="notes"
+        show={showDeleteModal}
+        handleClose={handleDeleteModalClose}
+        handleShow={handleDeleteModalShow}
+      />
+      <DeleteModal
+        for="archive"
+        show={showArchiveDeleteModal}
+        handleClose={handleArchiveDeleteModalClose}
+        handleShow={handleArchiveDeleteModalShow}
+      />
     </div>
   );
 }

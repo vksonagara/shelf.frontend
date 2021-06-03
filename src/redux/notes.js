@@ -43,13 +43,12 @@ export const notesSlice = createSlice({
       };
     },
     deleteNote: (state, action) => {
-      const deleteNote = action.payload;
-      console.log(deleteNote);
+      const deleteNoteId = action.payload;
       let { notes, currentNoteId, currentNoteTitle } = state;
       let newNotes = notes.filter((note) => {
-        return note.id != deleteNote.id;
+        return note.id != deleteNoteId;
       });
-      if (deleteNote.id == currentNoteId) {
+      if (deleteNoteId == currentNoteId) {
         currentNoteId = (newNotes[0] && newNotes[0].id) || null;
         currentNoteTitle = (newNotes[0] && newNotes[0].title) || null;
       }
@@ -67,7 +66,7 @@ export const notesSlice = createSlice({
 
       return {
         notes,
-        currentNoteId: note.id,
+        currentNoteId: note.id || note._id,
         currentNoteTitle: note.title,
       };
     },
@@ -88,11 +87,61 @@ export const notesSlice = createSlice({
     },
     getAllArchivedNotes: (state, action) => {
       const notes = action.payload.notes;
-      console.log(notes);
       return {
         notes,
         currentNoteId: (notes[0] && notes[0]._id) || null,
         currentNoteTitle: (notes[0] && notes[0].title) || null,
+      };
+    },
+    deleteArchiveNote: (state, action) => {
+      const deleteNoteId = action.payload;
+      let { notes, currentNoteId, currentNoteTitle } = state;
+      let newNotes = notes.filter((note) => {
+        return note._id != deleteNoteId;
+      });
+      if (deleteNoteId == currentNoteId) {
+        currentNoteId = (newNotes[0] && newNotes[0]._id) || null;
+        currentNoteTitle = (newNotes[0] && newNotes[0].title) || null;
+      }
+
+      return {
+        notes: newNotes,
+        currentNoteId,
+        currentNoteTitle,
+      };
+    },
+    restoreArchiveNote: (state, action) => {
+      const restoreNoteId = action.payload;
+      let { notes, currentNoteId, currentNoteTitle } = state;
+      let newNotes = notes.filter((note) => {
+        return note._id != restoreNoteId;
+      });
+      if (restoreNoteId == currentNoteId) {
+        currentNoteId = (newNotes[0] && newNotes[0]._id) || null;
+        currentNoteTitle = (newNotes[0] && newNotes[0].title) || null;
+      }
+
+      return {
+        notes: newNotes,
+        currentNoteId,
+        currentNoteTitle,
+      };
+    },
+    moveNote: (state, action) => {
+      const moveNoteId = action.payload;
+      let { notes, currentNoteId, currentNoteTitle } = state;
+      let newNotes = notes.filter((note) => {
+        return note.id != moveNoteId;
+      });
+      if (moveNoteId == currentNoteId) {
+        currentNoteId = (newNotes[0] && newNotes[0].id) || null;
+        currentNoteTitle = (newNotes[0] && newNotes[0].title) || null;
+      }
+
+      return {
+        notes: newNotes,
+        currentNoteId,
+        currentNoteTitle,
       };
     },
   },
@@ -106,6 +155,9 @@ export const {
   changeCurrentNote,
   updateNote,
   getAllArchivedNotes,
+  deleteArchiveNote,
+  restoreArchiveNote,
+  moveNote,
 } = notesSlice.actions;
 
 export default notesSlice.reducer;

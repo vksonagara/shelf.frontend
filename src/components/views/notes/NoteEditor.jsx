@@ -26,18 +26,36 @@ function NoteEditor() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlContentState, setHtmlContentState] = useState("");
   const { currentNoteId } = useSelector((state) => state.notes);
+  const { currentFolderId } = useSelector((state) => state.folders);
 
   function onEditorStateChange(editorState) {
-    console.log(editorState);
-    const rawContentState = convertToRaw(editorState.getCurrentContent());
-    const htmlContent = draftToHtml(rawContentState);
-    setEditorState(editorState);
-    debouncedConsoleLog(htmlContentState, htmlContent, currentNoteId);
-    setHtmlContentState(htmlContent);
+    if (currentFolderId !== "archive") {
+      const rawContentState = convertToRaw(editorState.getCurrentContent());
+      const htmlContent = draftToHtml(rawContentState);
+      setEditorState(editorState);
+      debouncedConsoleLog(htmlContentState, htmlContent, currentNoteId);
+      setHtmlContentState(htmlContent);
+    }
   }
 
   useEffect(() => {
-    if (currentNoteId) {
+    if (currentFolderId == "archive" && currentNoteId) {
+      notesApi.getDetailOfArchivedNote(currentNoteId).then((data) => {
+        if (data.data) {
+          const blocksFromHtml = htmlToDraft(data.data.note.note[0].content);
+          const { contentBlocks, entityMap } = blocksFromHtml;
+          const contentState = ContentState.createFromBlockArray(
+            contentBlocks,
+            entityMap
+          );
+          const editorNewState = EditorState.createWithContent(contentState);
+          setEditorState(editorNewState);
+          document
+            .querySelector(".public-DraftEditor-content")
+            .setAttribute("contenteditable", false);
+        }
+      });
+    } else if (currentNoteId) {
       notesApi.getDetailOfNote(currentNoteId).then((data) => {
         if (data.data) {
           const blocksFromHtml = htmlToDraft(data.data.note.content);
@@ -48,6 +66,9 @@ function NoteEditor() {
           );
           const editorNewState = EditorState.createWithContent(contentState);
           setEditorState(editorNewState);
+          document
+            .querySelector(".public-DraftEditor-content")
+            .setAttribute("contenteditable", true);
         }
       });
     } else {

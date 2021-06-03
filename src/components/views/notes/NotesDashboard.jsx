@@ -37,7 +37,7 @@ function NotesDashboard() {
           }}
         >
           <i class="bi bi-journal-plus icon-28"></i>
-          <h5>Please Create a Note</h5>
+          <h5>No note selected</h5>
         </div>
       )}
       {currentNoteId && currentFolderId && <ContentContainer />}
