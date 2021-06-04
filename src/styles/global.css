@@ -225,6 +225,14 @@ a:hover {
   width: 95% !important;
 }
 
+.content-container {
+  width: 59%;
+}
+
+.new-content-container {
+  width: 95%;
+}
+
 @media screen and (max-width: 1366px) {
   .sidebar-container {
     width: 7%;
@@ -253,6 +261,12 @@ a:hover {
   .demo-editor {
     height: 35rem !important;
     overflow: auto !important;
+  }
+  .content-container {
+    width: 45%;
+  }
+  .new-content-container {
+    width: 93%;
   }
 }
 

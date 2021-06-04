@@ -1,4 +1,3 @@
-import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import notesApi from "../../api/notes";
 import { deleteFolder, getAllFolders } from "../../redux/folders";
@@ -33,25 +32,25 @@ function DeleteModal(prop) {
       }
     }
     return (
-      <Modal show={prop.show.value} onHide={prop.handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Folder</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Sure Wanna Delete {currentFolderName}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={prop.handleClose}>
+      <div show={prop.show.value} onHide={prop.handleClose} centered>
+        <div closeButton>
+          <div>Delete Folder</div>
+        </div>
+        <div>Sure Wanna Delete {currentFolderName}</div>
+        <div>
+          <button variant="secondary" onClick={prop.handleClose}>
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             variant="primary"
             onClick={() => {
               deleteCurrentFolder(prop.show.id);
             }}
           >
             Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </button>
+        </div>
+      </div>
     );
   } else if (prop.for == "notes") {
     let currentNote = notes.filter((note) => {
@@ -79,25 +78,25 @@ function DeleteModal(prop) {
       }
     }
     return (
-      <Modal show={prop.show.value} onHide={prop.handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Note</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Sure Wanna Delete {currentNote}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={prop.handleClose}>
+      <div show={prop.show.value} onHide={prop.handleClose} centered>
+        <div closeButton>
+          <div>Delete Note</div>
+        </div>
+        <div>Sure Wanna Delete {currentNote}</div>
+        <div>
+          <button variant="secondary" onClick={prop.handleClose}>
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             variant="primary"
             onClick={() => {
               deleteCurrentNote(prop.show.id);
             }}
           >
             Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </button>
+        </div>
+      </div>
     );
   } else if (prop.for == "archive") {
     let currentNote = notes.filter((note) => {
@@ -112,35 +111,29 @@ function DeleteModal(prop) {
       const { data, error } = await notesApi.deleteArchivedNote(id);
       if (!error) {
         dispatch(deleteArchiveNote(id));
-        // const { data: noteData, error: noteError } =
-        //   await notesApi.getAllArchivedNotes();
-        // if (!noteError) {
-
-        //   dispatch(getAllNotes(noteData));
-        // }
         prop.handleClose();
       }
     }
     return (
-      <Modal show={prop.show.value} onHide={prop.handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Note</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Sure Wanna Delete {currentNote}, archive</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={prop.handleClose}>
+      <div show={prop.show.value} onHide={prop.handleClose} centered>
+        <div closeButton>
+          <div>Delete Note</div>
+        </div>
+        <div>Sure Wanna Delete {currentNote}, archive</div>
+        <div>
+          <button variant="secondary" onClick={prop.handleClose}>
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             variant="primary"
             onClick={() => {
               deleteCurrentNote(prop.show.id);
             }}
           >
             Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </button>
+        </div>
+      </div>
     );
   }
 }

@@ -1,10 +1,8 @@
-import Alert from "react-bootstrap/Alert";
-
 // Message Componet using Bootstrap
 
 function Message({ type, message }) {
   return (
-    <Alert variant={type} className={`d-flex flex-column align-items-center`}>
+    <div variant={type} className={`d-flex flex-column align-items-center`}>
       <i
         className={`bi icon-40 ${
           type === "success" ? "bi-check-circle-fill" : "bi-x-circle-fill"
@@ -20,7 +18,7 @@ function Message({ type, message }) {
       >
         {message}
       </p>
-    </Alert>
+    </div>
   );
 }
 

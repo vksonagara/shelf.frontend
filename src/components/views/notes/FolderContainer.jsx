@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Form, InputGroup, Badge, Dropdown } from "react-bootstrap";
 import CreateFolderModal from "../../common/CreateFolderModal";
 import notesApi from "../../../api/notes";
 import {
@@ -12,7 +11,7 @@ import {
 import RenameFolderModal from "../../common/RenameFolderModal";
 import DeleteModal from "../../common/DeleteModal";
 
-// used Custom Toggle
+// used Custom
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -102,21 +101,21 @@ function FolderContainer() {
           height: "90px",
         }}
       >
-        <Form>
-          <Form.Group
+        <form>
+          <div
             controlId="exampleForm.SelectCustom"
             style={{
               margin: "0",
             }}
             className="d-flex justify-content-between align-items-center"
           >
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>
+            <div>
+              <div>
+                <div>
                   <i class="bi bi-sort-down"></i>
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
+                </div>
+              </div>
+              <select
                 as="select"
                 custom
                 className="input folder-container-sort"
@@ -127,10 +126,10 @@ function FolderContainer() {
                 <option>Sort By</option>
                 <option>Notes</option>
                 <option>Created At</option>
-              </Form.Control>
-            </InputGroup>
-          </Form.Group>
-        </Form>
+              </select>
+            </div>
+          </div>
+        </form>
         <p
           style={{
             margin: "1rem 0",
@@ -163,38 +162,35 @@ function FolderContainer() {
             }}
           >
             <i className="bi bi-folder folder-icon">
-              <Badge className="badge"></Badge>
+              <div className="badge"></div>
             </i>
             <div>
               <p className="folder-para1">Archive</p>
               <p className="folder-para2"></p>
             </div>
           </div>
-          <Dropdown>
-            <Dropdown.Toggle
-              as={CustomToggle}
-              id="dropdown-custom-components"
-            ></Dropdown.Toggle>
+          <div>
+            <div as={CustomToggle} id="div-custom-components"></div>
 
-            <Dropdown.Menu>
-              <Dropdown.Item
+            <div>
+              <div
                 eventKey="1"
                 onClick={() => {
                   // handleRenameModalShow(id);
                 }}
               >
                 Delete All Archived notes
-              </Dropdown.Item>
-              <Dropdown.Item
+              </div>
+              <div
                 eventKey="1"
                 onClick={() => {
                   // handleRenameModalShow(id);
                 }}
               >
                 Restore All Archived notes
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              </div>
+            </div>
+          </div>
         </section>
         {folders.map((folder) => {
           const { id } = folder;
@@ -213,38 +209,35 @@ function FolderContainer() {
                 }}
               >
                 <i className="bi bi-folder folder-icon">
-                  <Badge className="badge">{folder.notesCount}</Badge>
+                  <div className="badge">{folder.notesCount}</div>
                 </i>
                 <div>
                   <p className="folder-para1">{folder.name}</p>
                   <p className="folder-para2">{folder.updatedAt}</p>
                 </div>
               </div>
-              <Dropdown>
-                <Dropdown.Toggle
-                  as={CustomToggle}
-                  id="dropdown-custom-components"
-                ></Dropdown.Toggle>
+              <div>
+                <div as={CustomToggle} id="div-custom-components"></div>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item
+                <div>
+                  <div
                     eventKey="1"
                     onClick={() => {
                       handleRenameModalShow(id);
                     }}
                   >
                     Rename
-                  </Dropdown.Item>
-                  <Dropdown.Item
+                  </div>
+                  <div
                     eventKey="2"
                     onClick={() => {
                       handleDeleteModalShow(id);
                     }}
                   >
                     Delete
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  </div>
+                </div>
+              </div>
             </section>
           );
         })}
@@ -252,7 +245,7 @@ function FolderContainer() {
 
       {/* folder container footer  */}
       <div
-        className="d-flex align-items-center justify-content-center"
+        className="d-flex aligns-center justify-content-center"
         style={{
           height: "50px",
         }}

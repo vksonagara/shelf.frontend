@@ -1,4 +1,3 @@
-import { Modal, Form, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { folderSchema } from "../../utils/ValidationUtil";
 import notesApi from "../../api/notes";
@@ -19,7 +18,7 @@ function RenameFolderModal(prop) {
     currentFolderName = currentFolderName[0].name;
   }
   return (
-    <Modal show={prop.show.value} onHide={prop.handleClose} centered>
+    <div show={prop.show.value} onHide={prop.handleClose} centered>
       <Formik
         validationSchema={folderSchema}
         initialValues={{
@@ -53,11 +52,11 @@ function RenameFolderModal(prop) {
         }) => {
           return (
             <>
-              <Modal.Header closeButton>
-                <Modal.Title>Folder Name</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form.Control
+              <div closeButton>
+                <div>Folder Name</div>
+              </div>
+              <div>
+                <input
                   type="text"
                   className="input mt-0"
                   name="folderName"
@@ -75,9 +74,9 @@ function RenameFolderModal(prop) {
                     {errors.folderName}
                   </p>
                 )}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
+              </div>
+              <div>
+                <button
                   variant="primary"
                   disabled={isSubmitting}
                   type="submit"
@@ -86,13 +85,13 @@ function RenameFolderModal(prop) {
                   }}
                 >
                   Rename Folder
-                </Button>
-              </Modal.Footer>
+                </button>
+              </div>
             </>
           );
         }}
       </Formik>
-    </Modal>
+    </div>
   );
 }
 

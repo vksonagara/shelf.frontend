@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, InputGroup, FormControl } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import notesApi from "../../../api/notes";
 import { updateNote } from "../../../redux/notes";
@@ -60,9 +59,9 @@ function TitleInput() {
           margin: "0 auto",
         }}
       >
-        <InputGroup>
-          <Form.Control
-            plaintext
+        <div>
+          <input
+            type="text"
             disabled={isDisabled}
             value={titleInput}
             className="note-name"
@@ -73,7 +72,7 @@ function TitleInput() {
             ref={noteTitleRef}
           />
           {currentFolderId !== "archive" && (
-            <InputGroup.Prepend
+            <div
               style={{
                 cursor: "pointer",
               }}
@@ -82,17 +81,17 @@ function TitleInput() {
                 editNoteName();
               }}
             >
-              <InputGroup.Text>
+              <div>
                 <i
                   className="bi bi-pencil"
                   style={{
                     color: "black",
                   }}
                 ></i>
-              </InputGroup.Text>
-            </InputGroup.Prepend>
+              </div>
+            </div>
           )}
-          <InputGroup.Prepend
+          <div
             style={{
               cursor: "pointer",
             }}
@@ -101,11 +100,11 @@ function TitleInput() {
               saveNoteName();
             }}
           >
-            <InputGroup.Text>
+            <div>
               <i className="bi bi-save" style={{}}></i>
-            </InputGroup.Text>
-          </InputGroup.Prepend>
-          <InputGroup.Prepend
+            </div>
+          </div>
+          <div
             style={{
               cursor: "pointer",
             }}
@@ -114,11 +113,11 @@ function TitleInput() {
               cancelEditNoteName();
             }}
           >
-            <InputGroup.Text>
+            <div>
               <i className="bi bi-x" style={{}}></i>
-            </InputGroup.Text>
-          </InputGroup.Prepend>
-        </InputGroup>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -178,12 +177,12 @@ function ContentContainer() {
           <i className="bi bi-download icon-20 ml-4"></i>
         </div>
 
-        <InputGroup
+        <div
           style={{
             width: "300px",
           }}
         >
-          <FormControl type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." />
           <div
             style={{
               position: "absolute",
@@ -199,7 +198,7 @@ function ContentContainer() {
               }}
             ></i>
           </div>
-        </InputGroup>
+        </div>
       </header>
       <TitleInput />
       <NoteEditor />

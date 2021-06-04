@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
 import { useDispatch, useSelector } from "react-redux";
 import notesApi from "../../api/notes";
 import { restoreArchiveNote, moveNote } from "../../redux/notes";
 import { getAllFolders } from "../../redux/folders";
-
-console.log(Form.Select);
 
 function RestoreModal(prop) {
   const dispatch = useDispatch();
@@ -45,13 +41,13 @@ function RestoreModal(prop) {
       prop.handleClose();
     }
     return (
-      <Modal show={prop.show.value} onHide={prop.handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Restore Modal</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <div show={prop.show.value} onHide={prop.handleClose} centered>
+        <div closeButton>
+          <div>Restore div</div>
+        </div>
+        <div>
           Please select a folder to restore
-          <Form.Control
+          <input
             as="select"
             custom
             className="input"
@@ -60,26 +56,25 @@ function RestoreModal(prop) {
               console.log(e.target.value);
               setCurrentOptionForRestore(e.target.value);
             }}
-          >
-            {folders.map((folder) => {
-              return <option value={folder.id}>{folder.name}</option>;
-            })}
-          </Form.Control>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={prop.handleClose}>
+          />
+          {folders.map((folder) => {
+            return <option value={folder.id}>{folder.name}</option>;
+          })}
+        </div>
+        <div>
+          <button variant="secondary" onClick={prop.handleClose}>
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             variant="primary"
             onClick={() => {
               restoreNote();
             }}
           >
             Restore
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </button>
+        </div>
+      </div>
     );
   } else {
     async function moveNoteInOtherFolder() {
@@ -96,13 +91,13 @@ function RestoreModal(prop) {
       prop.handleClose();
     }
     return (
-      <Modal show={prop.show.value} onHide={prop.handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Restore Modal</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+      <div show={prop.show.value} onHide={prop.handleClose} centered>
+        <div closebutton>
+          <div>Restore div</div>
+        </div>
+        <div>
           Please select a folder to restore
-          <Form.Control
+          <input
             as="select"
             custom
             className="input"
@@ -110,28 +105,27 @@ function RestoreModal(prop) {
             onChange={(e) => {
               setCurrentOptionForMove(e.target.value);
             }}
-          >
-            {folders.map((folder) => {
-              if (folder.id != currentFolderId) {
-                return <option value={folder.id}>{folder.name}</option>;
-              }
-            })}
-          </Form.Control>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={prop.handleClose}>
+          />
+          {folders.map((folder) => {
+            if (folder.id != currentFolderId) {
+              return <option value={folder.id}>{folder.name}</option>;
+            }
+          })}
+        </div>
+        <div>
+          <button variant="secondary" onClick={prop.handleClose}>
             Cancel
-          </Button>
-          <Button
+          </button>
+          <button
             variant="primary"
             onClick={() => {
               moveNoteInOtherFolder();
             }}
           >
             Restore
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          </button>
+        </div>
+      </div>
     );
   }
 }

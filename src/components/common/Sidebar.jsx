@@ -1,4 +1,3 @@
-import { Dropdown, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Menus from "../../config/menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -48,9 +47,9 @@ function Menu() {
     >
       {Menus.map((menu, index) => {
         return (
-          <OverlayTrigger
+          <div
             placement="right"
-            overlay={<Tooltip id={`tooltip-right`}>{menu.title}</Tooltip>}
+            overlay={<div id={`div-right`}>{menu.title}</div>}
             key={index}
           >
             <Link to={`${menu.link}`}>
@@ -77,7 +76,7 @@ function Menu() {
                 )}
               </div>
             </Link>
-          </OverlayTrigger>
+          </div>
         );
       })}
     </div>
@@ -126,29 +125,29 @@ function Sidebar() {
         <Menu />
       </div>
       <div className="d-flex justify-content-center border-top p-2">
-        <Dropdown>
-          <Dropdown.Toggle id="dropdown-basic" variant="light">
+        <div>
+          <div id="div-basic" variant="light">
             {/* <img src="/images/person.svg" alt="" /> */}
             <i className="bi bi-person-circle icon-20"></i>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
+          </div>
+          <div>
             <Link to="/setting">
-              <Dropdown.Item eventKey="1" as="div">
+              <div eventKey="1" as="div">
                 Setting
-              </Dropdown.Item>
+              </div>
             </Link>
             <Link to="/profile">
-              <Dropdown.Item eventKey="2" as="div">
+              <div eventKey="2" as="div">
                 Profile
-              </Dropdown.Item>
+              </div>
             </Link>
             <Link to="/help">
-              <Dropdown.Item eventKey="3" as="div">
+              <div eventKey="3" as="div">
                 Help
-              </Dropdown.Item>
+              </div>
             </Link>
-            <Dropdown.Divider />
-            <Dropdown.Item
+            <div />
+            <div
               eventKey="4"
               onClick={async () => {
                 const { error } = await userApi.signout();
@@ -158,9 +157,9 @@ function Sidebar() {
               }}
             >
               Sign Out
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

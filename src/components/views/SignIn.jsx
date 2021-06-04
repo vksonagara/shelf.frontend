@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { useDispatch } from "react-redux";
-import { Form, Button } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import { Formik, Field } from "formik";
 import { useState } from "react";
@@ -94,7 +93,7 @@ function SignIn() {
                 >
                   Sign in to Shelf
                 </h5>
-                <Form.Control
+                <input
                   type="email"
                   placeholder="Enter email"
                   className={`input  ${
@@ -108,7 +107,7 @@ function SignIn() {
                 {touched.emailId && errors.emailId && (
                   <ValidationError err={errors.emailId} />
                 )}
-                <Form.Control
+                <input
                   type="password"
                   placeholder="Enter password"
                   className={`input  ${
@@ -141,7 +140,7 @@ function SignIn() {
                     Remember me
                   </label>
                 </div>
-                <Button
+                <button
                   variant="primary"
                   block
                   className="m-4  "
@@ -153,9 +152,9 @@ function SignIn() {
                   onClick={handleSubmit}
                 >
                   Sign In
-                </Button>{" "}
+                </button>{" "}
                 <p>Or</p>
-                <Button
+                <button
                   block
                   className="d-flex flex-row align-items-center justify-content-center"
                   variant="light"
@@ -177,7 +176,7 @@ function SignIn() {
                   >
                     Continue with Google
                   </span>
-                </Button>
+                </button>
               </>
             );
           }}

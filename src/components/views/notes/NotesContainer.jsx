@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Form, InputGroup, Badge, Dropdown } from "react-bootstrap";
 import notesApi from "../../../api/notes";
 import {
   createNote,
@@ -95,31 +94,28 @@ function NoteList() {
                 <p className="notes-para2">{note.updatedAt}</p>
               </div>
             </div>
-            <Dropdown>
-              <Dropdown.Toggle
-                as={CustomToggle}
-                id="dropdown-custom-components"
-              ></Dropdown.Toggle>
+            <div>
+              <div as={CustomToggle} id="div-custom-components"></div>
 
-              <Dropdown.Menu>
-                <Dropdown.Item
+              <div>
+                <div
                   eventKey="2"
                   onClick={() => {
                     handleDeleteModalShow(id);
                   }}
                 >
                   Delete
-                </Dropdown.Item>
-                <Dropdown.Item
+                </div>
+                <div
                   eventKey="2"
                   onClick={() => {
                     handleMoveModalShow(id);
                   }}
                 >
                   Move
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                </div>
+              </div>
+            </div>
           </section>
         );
       })}
@@ -199,31 +195,28 @@ function ArchiveNoteList() {
                 <p className="notes-para2">{note.deletedAt}</p>
               </div>
             </div>
-            <Dropdown>
-              <Dropdown.Toggle
-                as={CustomToggle}
-                id="dropdown-custom-components"
-              ></Dropdown.Toggle>
+            <div>
+              <div as={CustomToggle} id="div-custom-components"></div>
 
-              <Dropdown.Menu>
-                <Dropdown.Item
+              <div>
+                <div
                   eventKey="2"
                   onClick={() => {
                     handleDeleteModalShow(_id);
                   }}
                 >
                   Delete
-                </Dropdown.Item>
-                <Dropdown.Item
+                </div>
+                <div
                   eventKey="2"
                   onClick={() => {
                     handleRestoreModalShow(_id);
                   }}
                 >
                   Restore
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                </div>
+              </div>
+            </div>
           </section>
         );
       })}
@@ -340,25 +333,25 @@ function NotesContainer() {
           height: "90px",
         }}
       >
-        <Form className="d-flex">
-          <Form.Group
-            controlId="exampleForm.SelectCustom"
+        <div className="d-flex">
+          <div
+            controlId="examplediv.SelectCustom"
             style={{
               margin: "0",
               width: "220px",
             }}
             className="d-flex justify-content-between align-items-center"
           >
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text>
+            <div>
+              <div>
+                <div>
                   <i class="bi bi-sort-down"></i>
-                </InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
+                </div>
+              </div>
+              <div
                 as="select"
                 custom
-                className="input notes-container-sort"
+                className="divt notes-container-sort "
                 style={{
                   margin: "0",
                   width: "140px",
@@ -367,10 +360,10 @@ function NotesContainer() {
                 <option>Sort By</option>
                 <option>Notes</option>
                 <option>Created At</option>
-              </Form.Control>
-            </InputGroup>
-          </Form.Group>
-        </Form>
+              </div>
+            </div>
+          </div>
+        </div>
         <p
           style={{
             margin: "1rem 0",

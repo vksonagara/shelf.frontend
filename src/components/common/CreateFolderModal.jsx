@@ -1,4 +1,3 @@
-import { Modal, Form, Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { folderSchema } from "../../utils/ValidationUtil";
 import notesApi from "../../api/notes";
@@ -10,7 +9,7 @@ import { createFolder } from "../../redux/folders";
 function CreateFolderModal(prop) {
   const dispatch = useDispatch();
   return (
-    <Modal show={prop.show} onHide={prop.handleClose} centered>
+    <div show={prop.show} onHide={prop.handleClose} centered>
       <Formik
         validationSchema={folderSchema}
         initialValues={{
@@ -38,11 +37,11 @@ function CreateFolderModal(prop) {
         }) => {
           return (
             <>
-              <Modal.Header closeButton>
-                <Modal.Title>Folder Name</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form.Control
+              <div closeButton>
+                <div>Folder Name</div>
+              </div>
+              <div>
+                <input
                   type="text"
                   className="input mt-0"
                   name="folderName"
@@ -60,9 +59,9 @@ function CreateFolderModal(prop) {
                     {errors.folderName}
                   </p>
                 )}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button
+              </div>
+              <div>
+                <button
                   variant="primary"
                   disabled={isSubmitting}
                   type="submit"
@@ -71,13 +70,13 @@ function CreateFolderModal(prop) {
                   }}
                 >
                   Create New
-                </Button>
-              </Modal.Footer>
+                </button>
+              </div>
             </>
           );
         }}
       </Formik>
-    </Modal>
+    </div>
   );
 }
 

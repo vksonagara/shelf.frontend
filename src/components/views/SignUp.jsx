@@ -1,4 +1,3 @@
-import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { SuccessMessage, DangerMessage } from "../common/Message";
@@ -97,7 +96,7 @@ function SignUp() {
                 >
                   Sign up for your account
                 </h5>
-                <Form.Control
+                <input
                   type="text"
                   placeholder="First name"
                   className={`input  ${
@@ -111,7 +110,7 @@ function SignUp() {
                 {touched.firstName && errors.firstName && (
                   <ValidationError err={errors.firstName} />
                 )}
-                <Form.Control
+                <input
                   type="text"
                   placeholder="Last name"
                   className={`input  ${
@@ -125,7 +124,7 @@ function SignUp() {
                 {touched.lastName && errors.lastName && (
                   <ValidationError err={errors.lastName} />
                 )}
-                <Form.Control
+                <input
                   type="email"
                   placeholder="Enter email"
                   className={`input  ${
@@ -139,7 +138,7 @@ function SignUp() {
                 {touched.emailId && errors.emailId && (
                   <ValidationError err={errors.emailId} />
                 )}
-                <Form.Control
+                <input
                   type="password"
                   placeholder="Enter password"
                   className={`input  ${
@@ -166,7 +165,7 @@ function SignUp() {
                   <Link to="/terms"> Terms of Service</Link> and acknowledge the
                   <Link to="/privacy"> Privacy Policy</Link> .
                 </p>
-                <Button
+                <button
                   variant="primary"
                   block
                   className="m-3"
@@ -178,9 +177,9 @@ function SignUp() {
                   onClick={handleSubmit}
                 >
                   Sign Up
-                </Button>{" "}
+                </button>{" "}
                 <p>Or</p>
-                <Button
+                <button
                   block
                   className="d-flex flex-row align-items-center justify-content-center"
                   variant="light"
@@ -202,7 +201,7 @@ function SignUp() {
                   >
                     Continue with Google
                   </span>
-                </Button>
+                </button>
               </>
             );
           }}
