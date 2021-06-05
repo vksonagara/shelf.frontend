@@ -4,35 +4,12 @@ import { Link } from "react-router-dom";
 import userApi from "../../api/users";
 import { useDispatch } from "react-redux";
 import { signOut } from "../../redux/auth";
-
-// Special Logo for only Sidebar
-function Logo() {
-  return (
-    <div
-      className="border-bottom d-flex justify-content-center"
-      style={{
-        width: "100%",
-        cursor: "pointer",
-      }}
-    >
-      <Link
-        to="/"
-        className="p-2 m-3 text-primary"
-        style={{
-          color: "black",
-          fontWeight: "700",
-          fontSize: "21px",
-        }}
-      >
-        Shelf
-      </Link>
-    </div>
-  );
-}
+import AppLogo from "./AppLogo";
 
 // Menu Items for sidebar
 
 function Menu() {
+  // active Menu Index State Managment
   const [activeMenuIndex, setActiveMenuIndex] = useState(0);
 
   function handleMenuClick(index) {
@@ -40,40 +17,25 @@ function Menu() {
   }
 
   return (
-    <div
-      style={{
-        width: "100%",
-      }}
-    >
+    <div className="w-full">
+      {/* Creating Menus with Config Files  */}
       {Menus.map((menu, index) => {
         return (
-          <div
-            placement="right"
-            overlay={<div id={`div-right`}>{menu.title}</div>}
-            key={index}
-          >
+          <div key={index}>
             <Link to={`${menu.link}`}>
               <div
-                className={`border-bottom d-flex justify-content-center icon-container  ${
+                className={`flex content-center icon-container w-full cursor-pointer ${
                   activeMenuIndex == index ? "active-icon-container" : ""
                 }`}
-                style={{
-                  width: "100%",
-                  cursor: "pointer",
-                }}
                 onClick={() => {
                   handleMenuClick(index);
                 }}
               >
-                {menu.iconUrl ? (
-                  <img src={menu.iconUrl} />
-                ) : (
-                  <i
-                    className={`${menu.iconClass} ${
-                      activeMenuIndex == index ? "active-icon" : ""
-                    }`}
-                  ></i>
-                )}
+                <i
+                  className={`${menu.iconClass} ${
+                    activeMenuIndex == index ? "active-icon" : ""
+                  }`}
+                ></i>
               </div>
             </Link>
           </div>
@@ -93,7 +55,7 @@ function Sidebar() {
         position: "fixed",
         zIndex: "10",
       }}
-      className="bg-light d-flex flex-column justify-content-between sidebar-container"
+      className="flex flex-col content-between sidebar-container"
     >
       <i
         className="bi bi-caret-right-square icon-28 collapse-icon"
@@ -121,7 +83,7 @@ function Sidebar() {
         }}
       ></i>
       <div>
-        <Logo />
+        <AppLogo />
         <Menu />
       </div>
       <div className="d-flex justify-content-center border-top p-2">

@@ -1,17 +1,16 @@
 import { Link } from "react-router-dom";
 
 // App Logo
-function AppLogo() {
+function AppLogo(prop) {
   return (
-    <h2
-      className=""
-      // style={{
-      //   margin: "2rem",
-      //   fontWeight: "bold",
-      // }}
-    >
-      <Link to="/">Shelf</Link>
-    </h2>
+    <Link to="/" className={prop.margin}>
+      <img
+        src="https://storage.googleapis.com/staging_shelf/Shelf.svg"
+        alt="Shelf Image"
+        width={prop.width}
+        height={prop.height}
+      />
+    </Link>
   );
 }
 

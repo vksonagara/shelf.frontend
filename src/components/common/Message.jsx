@@ -2,19 +2,22 @@
 
 function Message({ type, message }) {
   return (
-    <div variant={type} className={`d-flex flex-column align-items-center`}>
+    <div
+      className={`flex flex-col items-center p-3 w-full break-all ${
+        type == "success" ? "bg-green-300" : "bg-red-300"
+      }`}
+    >
       <i
         className={`bi icon-40 ${
-          type === "success" ? "bi-check-circle-fill" : "bi-x-circle-fill"
+          type === "success"
+            ? "bi-check-circle-fill"
+            : "bi-x-circle-fill text-red-700"
         }`}
       ></i>
       <p
-        className="m-0"
-        style={{
-          fontSize: "15px",
-          fontWeight: "400",
-          textAlign: "center",
-        }}
+        className={`text-base font-normal text-center  ${
+          type == "success" ? "text-green-700" : "text-red-700"
+        }`}
       >
         {message}
       </p>

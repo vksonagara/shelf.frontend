@@ -3,6 +3,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Custom Box Shadow  */
+
+.custom-box-shadow1 {
+  box-shadow: 0px 0px 7px 1px rgb(193 193 193 / 20%);
+}
+
 .icon-20 {
   font-size: 20px;
 }
@@ -22,11 +28,11 @@ body {
   color: #007bff;
 }
 
-.active-icon {
+/* .active-icon {
   color: white;
-}
+} */
 
-.active-icon-container {
+/* .active-icon-container {
   background-color: #007bff;
   border: none !important;
 }
@@ -38,7 +44,7 @@ body {
 
 .icon-container:hover:not(.active-icon-container) .icon-24 {
   color: white;
-}
+} */
 
 a {
   text-decoration: none !important;

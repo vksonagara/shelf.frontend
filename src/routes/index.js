@@ -7,24 +7,24 @@ const routes = [
   {
     path: "/signup",
     component: SignUp,
-    onlyGuest: true
+    onlyGuest: true,
   },
   {
     path: "/verify-email",
     component: VerifyEmail,
-    onlyGuest: true
+    onlyGuest: true,
   },
   {
     path: "/signin",
     component: SignIn,
-    onlyGuest: true
+    onlyGuest: true,
   },
   {
     path: "/notes",
     component: NotesDashboard,
     isProtected: true,
-    hasSidebar: true
-  }
+    hasSidebar: true,
+  },
 ];
 
 export default routes;
