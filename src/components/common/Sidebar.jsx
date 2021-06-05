@@ -50,20 +50,15 @@ function Sidebar() {
   const dispatch = useDispatch();
   return (
     <div
-      style={{
-        height: "100vh",
-        position: "fixed",
-        zIndex: "10",
-      }}
-      className="flex flex-col content-between sidebar-container"
+      className="flex flex-col content-between sidebar-container h-screen
+      fixed z-10"
     >
+      {/* Icon for Collapsable folder-container and note-container */}
       <i
-        className="bi bi-caret-right-square icon-28 collapse-icon"
+        className="bi bi-chevron-right absolute top-2/4  collapse-icon text-white bg-blue-600  text-sm p-2"
         style={{
-          position: "absolute",
+          borderRadius: "50%",
           right: "-10px",
-          color: "black",
-          top: "40%",
           display: "none",
         }}
         onClick={(e) => {
@@ -83,13 +78,14 @@ function Sidebar() {
         }}
       ></i>
       <div>
+        {/* App Logo  */}
         <AppLogo />
+        {/* Menu Component  */}
         <Menu />
       </div>
-      <div className="d-flex justify-content-center border-top p-2">
-        <div>
+      <div className="flex content-center border-t p-2">
+        {/* <div>
           <div id="div-basic" variant="light">
-            {/* <img src="/images/person.svg" alt="" /> */}
             <i className="bi bi-person-circle icon-20"></i>
           </div>
           <div>
@@ -121,7 +117,7 @@ function Sidebar() {
               Sign Out
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

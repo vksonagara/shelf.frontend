@@ -1,38 +1,15 @@
+/* Font Family for body  */
+
 body {
   font-family: "Montserrat", sans-serif !important;
   overflow-x: hidden;
 }
 
-/* Custom Box Shadow  */
-
-.custom-box-shadow1 {
-  box-shadow: 0px 0px 7px 1px rgb(193 193 193 / 20%);
-}
-
-.icon-20 {
-  font-size: 20px;
-}
-
-.icon-32 {
-  font-size: 32px;
-}
-
-.icon-40 {
-  font-size: 40px;
-}
-.icon-28 {
-  font-size: 28px;
-}
-.icon-24 {
-  font-size: 24px;
-  color: #007bff;
-}
-
-/* .active-icon {
+.active-icon {
   color: white;
-} */
+}
 
-/* .active-icon-container {
+.active-icon-container {
   background-color: #007bff;
   border: none !important;
 }
@@ -44,7 +21,7 @@ body {
 
 .icon-container:hover:not(.active-icon-container) .icon-24 {
   color: white;
-} */
+}
 
 a {
   text-decoration: none !important;
@@ -195,10 +172,10 @@ a:hover {
 }
 
 .sidebar-container {
-  width: 5%;
+  width: 5rem;
 }
 .notes-dashboard {
-  left: 5%;
+  left: 5rem;
 }
 .folder-container {
   width: 18%;
@@ -216,7 +193,7 @@ a:hover {
   width: 140px;
 }
 .new-content-container {
-  width: 95%;
+  width: calc(100% - 5rem);
 }
 .demo-editor {
   height: 45rem !important;
@@ -232,19 +209,12 @@ a:hover {
 }
 
 .content-container {
-  width: 59%;
-}
-
-.new-content-container {
-  width: 95%;
+  width: calc(64% - 5rem);
 }
 
 @media screen and (max-width: 1366px) {
-  .sidebar-container {
-    width: 7%;
-  }
   .notes-dashboard {
-    left: 7%;
+    left: 5rem;
   }
   .folder-container {
     width: 24%;
@@ -269,10 +239,10 @@ a:hover {
     overflow: auto !important;
   }
   .content-container {
-    width: 45%;
+    width: calc(52% - 5rem);
   }
   .new-content-container {
-    width: 93%;
+    width: calc(100% -7rem);
   }
 }
 
