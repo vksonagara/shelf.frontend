@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import userApi from "./api/users";
 import Sidebar from "./components/common/Sidebar";
 import Loader from "./components/common/Loader";
+import Toast from "./components/common/Toast";
 
 function App() {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ function App() {
 
   return (
     <>
+      <Toast />
       <Router>
         <Switch>
           {routes.map((route, index) => {
