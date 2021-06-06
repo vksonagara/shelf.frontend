@@ -28,7 +28,7 @@ function SignIn() {
   return (
     <div className="flex flex-col items-center h-screen bg-gray-100">
       {/* App Logo  */}
-      <AppLogo margin="m-8" width="80" height="80" />
+      <AppLogo customStyle="m-8" width="80" height="80" />
 
       {/* SignIn Component  */}
       <section className="flex flex-col w-96 items-center py-4 px-8 mt-4 bg-white shadow-lg rounded-lg">

@@ -11,33 +11,34 @@ import {
 import RenameFolderModal from "../../common/RenameFolderModal";
 import DeleteModal from "../../common/DeleteModal";
 
-// used Custom
+// // used Custom
 
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-  <a
-    href=""
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    {/* Render custom icon here */}
-    <i
-      className="bi bi-three-dots-vertical"
-      style={{
-        color: "white",
-      }}
-    ></i>
-    {children}
-  </a>
-));
+// const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+//   <a
+//     href=""
+//     ref={ref}
+//     onClick={(e) => {
+//       e.preventDefault();
+//       onClick(e);
+//     }}
+//   >
+//     {/* Render custom icon here */}
+//     <i
+//       className="bi bi-three-dots-vertical"
+//       style={{
+//         color: "white",
+//       }}
+//     ></i>
+//     {children}
+//   </a>
+// ));
 
+// Folder Container component
 function FolderContainer() {
   // State for create Folder modal
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showCreateModal, setCreateModal] = useState(false);
+  const handleCreateModalClose = () => setCreateModal(false);
+  const handleCreateModalShow = () => setCreateModal(true);
 
   // State for rename folder modal
   const [showRenameModal, setRenameModal] = useState({
@@ -72,7 +73,11 @@ function FolderContainer() {
     });
 
   const dispatch = useDispatch();
+
+  // Redux state for folder
   const { folders, currentFolderId } = useSelector((state) => state.folders);
+
+  // Redux State for notes
   const { notes, currentNoteId } = useSelector((state) => state.notes);
 
   // Using useEffect to get all folder data after rendor
@@ -83,73 +88,37 @@ function FolderContainer() {
       }
     });
   }, []);
+
   return (
     <div
       style={{
-        height: "100vh",
-        padding: "1rem 1rem",
         backgroundColor: "rgb(29 50 70)",
-        color: "white",
-        display: "flex",
-        flexDirection: "column",
       }}
-      className="folder-container"
+      className="folder-container h-screen p-4 text-white flex flex-col"
     >
       {/* Folder Container Header  */}
-      <div
-        style={{
-          height: "90px",
-        }}
-      >
-        <form>
-          <div
-            controlId="exampleForm.SelectCustom"
-            style={{
-              margin: "0",
-            }}
-            className="d-flex justify-content-between align-items-center"
-          >
-            <div>
-              <div>
-                <div>
-                  <i class="bi bi-sort-down"></i>
-                </div>
-              </div>
-              <select
-                as="select"
-                custom
-                className="input folder-container-sort"
-                style={{
-                  margin: "0",
-                }}
-              >
-                <option>Sort By</option>
-                <option>Notes</option>
-                <option>Created At</option>
-              </select>
-            </div>
-          </div>
-        </form>
-        <p
-          style={{
-            margin: "1rem 0",
-            fontSize: "0.75rem",
-            fontWeight: "600",
-          }}
-        >
-          Folders
-        </p>
+      <div className="h-24 text-black ">
+        <div className="flex items-center">
+          <i class="bi bi-sort-down h-7 bg-white px-2 flex items-center"></i>
+          <select className="bg-white h-7 focus:outline-none px-4">
+            <option>Sort By</option>
+            <option>Notes</option>
+            <option>Created At</option>
+          </select>
+        </div>
+        <p className="my-4 text-xs font-semibold text-white">Folders</p>
       </div>
+
       {/* folder container body  */}
       <div
         id="foldersContainer"
+        className="m-4 overflow-y-auto"
         style={{
-          overflowY: "auto",
-          height: "calc(100vh - 170px)",
+          height: "calc(100vh - 144px)",
         }}
       >
         <section
-          className={`folder ${
+          className={`flex justify-between items-center mb-2 ${
             "archive" == currentFolderId ? "active-folder" : ""
           }`}
           style={{
@@ -157,9 +126,11 @@ function FolderContainer() {
           }}
         >
           <div
+            // Changing Redux State on Folder Change
             onClick={async () => {
               dispatch(changeCurrentFolder("archive"));
             }}
+            className="flex items-center"
           >
             <i className="bi bi-folder folder-icon">
               <div className="badge"></div>
@@ -170,7 +141,7 @@ function FolderContainer() {
             </div>
           </div>
           <div>
-            <div as={CustomToggle} id="div-custom-components"></div>
+            <div id="div-custom-components"></div>
 
             <div>
               <div
@@ -179,15 +150,7 @@ function FolderContainer() {
                   // handleRenameModalShow(id);
                 }}
               >
-                Delete All Archived notes
-              </div>
-              <div
-                eventKey="1"
-                onClick={() => {
-                  // handleRenameModalShow(id);
-                }}
-              >
-                Restore All Archived notes
+                Empty Archive
               </div>
             </div>
           </div>
@@ -196,7 +159,7 @@ function FolderContainer() {
           const { id } = folder;
           return (
             <section
-              className={`folder ${
+              className={`flex justify-between items-center mb-2 ${
                 id == currentFolderId ? "active-folder" : ""
               }`}
               style={{
@@ -207,6 +170,7 @@ function FolderContainer() {
                 onClick={() => {
                   dispatch(changeCurrentFolder(id));
                 }}
+                className="flex items-center"
               >
                 <i className="bi bi-folder folder-icon">
                   <div className="badge">{folder.notesCount}</div>
@@ -217,7 +181,7 @@ function FolderContainer() {
                 </div>
               </div>
               <div>
-                <div as={CustomToggle} id="div-custom-components"></div>
+                <div id="div-custom-components"></div>
 
                 <div>
                   <div
@@ -242,53 +206,37 @@ function FolderContainer() {
           );
         })}
       </div>
-
       {/* folder container footer  */}
-      <div
-        className="d-flex aligns-center justify-content-center"
-        style={{
-          height: "50px",
-        }}
-      >
+      <div className="flex items-center justify-center h-12">
         <div
-          className="d-flex align-items-center"
-          style={{
-            cursor: "pointer",
-          }}
+          className="flex items-center cursor-pointer"
+          // Showing Create Folder modal onclick
           onClick={() => {
-            handleShow();
+            handleCreateModalShow();
           }}
         >
-          <i className="bi bi-plus-circle mr-1 icon-20"></i>
-          <p
-            className="mb-0"
-            style={{
-              fontSize: "14px",
-              fontWeight: "600",
-            }}
-          >
-            New Folder
-          </p>
+          <i className="bi bi-plus-circle mr-1 text-base"></i>
+          <p className="mb-0 font-semibold text-sm">New Folder</p>
         </div>
       </div>
       {/* create folder modal  */}
-      <CreateFolderModal
-        show={show}
-        handleClose={handleClose}
-        handleShow={handleShow}
-      />
+      {/* <CreateFolderModal
+        show={showCreateModal}
+        handleClose={handleCreateModalClose}
+        handleShow={handleCreateModalShow}
+      /> */}
       {/* rename folder modal  */}
-      <RenameFolderModal
+      {/* <RenameFolderModal
         show={showRenameModal}
         handleClose={handleRenameModalClose}
         handleShow={handleRenameModalShow}
-      />
-      <DeleteModal
+      /> */}
+      {/* <DeleteModal
         for="folder"
         show={showDeleteModal}
         handleClose={handleDeleteModalClose}
         handleShow={handleDeleteModalShow}
-      />
+      /> */}
     </div>
   );
 }

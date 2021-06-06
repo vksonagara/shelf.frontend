@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 // App Logo
 function AppLogo(prop) {
   return (
-    <Link to="/" className={prop.margin}>
+    <Link to="/" className={prop.customStyle}>
       <img
         src="https://storage.googleapis.com/staging_shelf/Shelf.svg"
         alt="Shelf Image"

@@ -5,6 +5,14 @@ body {
   overflow-x: hidden;
 }
 
+/* For ALL Links  */
+
+a {
+  text-decoration: none !important;
+}
+
+/* Css for Sidebar Component  */
+
 .active-icon {
   color: white;
 }
@@ -23,39 +31,7 @@ body {
   color: white;
 }
 
-a {
-  text-decoration: none !important;
-}
-
-.input:focus {
-  box-shadow: inset 0 -1px 0 #ddd;
-}
-
-.btn:focus,
-.btn:active {
-  outline: none !important;
-  box-shadow: none;
-}
-
-/* SignUP Css  */
-.input {
-  margin-top: 1.5rem;
-  /* border: none; */
-  border-radius: 0;
-  /* border-bottom: 1px solid gray; */
-}
-
-.input::placeholder {
-  font-size: 0.75rem;
-}
-
-.pa-error {
-  outline: 1px solid red;
-}
-
-a:hover {
-  text-decoration: underline;
-}
+/* Folder Component  */
 
 .folder-icon {
   /* text-align:center;
@@ -74,21 +50,6 @@ a:hover {
   color: white;
 }
 
-.folder {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.folder > div {
-  display: flex;
-  align-items: center;
-}
-
-.folder > div > div {
-  line-height: 1.1;
-}
 .folder-para1 {
   margin: 0;
   font-size: 14px;
@@ -179,10 +140,6 @@ a:hover {
 }
 .folder-container {
   width: 18%;
-}
-
-.folder-container-sort {
-  width: 140px;
 }
 
 .notes-container {
