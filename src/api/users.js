@@ -1,5 +1,6 @@
 import axios from "../api";
 import config from "../config";
+import { resetPasswordSchema } from "../utils/ValidationUtil";
 
 // Signup, Signin, verifyemail, getAccessToken, signOut  APIs
 
@@ -76,6 +77,38 @@ const userApi = {
       return { error: null, data: response.data };
     } catch (err) {
       return { error: err.response.data.message };
+    }
+  },
+
+  async sendForgotPasswordLink({ emailId }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${config.BASE_API_URL}/api/users/forgot-password`,
+        data: { emailId },
+      });
+
+      return { error: null, data: response.data };
+    } catch (err) {
+      return { error: err.response?.data?.message };
+    }
+  },
+
+  async resetPassword({ emailId, password, token }) {
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${config.BASE_API_URL}/api/users/reset-password`,
+        data: {
+          emailId,
+          newPassword: password,
+          token,
+        },
+      });
+
+      return { error: null, data: response.data };
+    } catch (err) {
+      return { error: err.response?.data?.message };
     }
   },
 };
