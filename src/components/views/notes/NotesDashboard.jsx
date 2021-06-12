@@ -8,19 +8,12 @@ function NotesDashboard() {
   const { folders, currentFolderId } = useSelector((state) => state.folders);
   const { notes, currentNoteId } = useSelector((state) => state.notes);
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "flex",
-        width: "100%",
-      }}
-      className="notes-dashboard"
-    >
+    <div className="notes-dashboard relative flex w-full overflow-hidden h-screen">
       <FolderContainer />
       {currentFolderId && <NotesContainer />}
       {!currentFolderId && (
         <div
-          className="d-flex align-items-center justify-content-center flex-column"
+          className="flex items-center justify-center flex-col"
           style={{
             width: "77%",
           }}
@@ -31,7 +24,7 @@ function NotesDashboard() {
       )}
       {currentFolderId && !currentNoteId && (
         <div
-          className="d-flex align-items-center justify-content-center flex-column"
+          className="flex items-center justify-center flex-col"
           style={{
             width: "59%",
           }}

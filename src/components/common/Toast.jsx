@@ -23,7 +23,7 @@ export function notify(message, type, position) {
   switch (type) {
     case "success": {
       return toast(
-        <div className="flex items-center">
+        <div className="flex items-center break-all">
           <CheckCircleIcon className="h-5 w-5 text-green-500 mr-2" />
           <span>{message}</span>
         </div>,
@@ -34,7 +34,7 @@ export function notify(message, type, position) {
     }
     case "danger": {
       return toast(
-        <div className="flex items-center">
+        <div className="flex items-center break-all">
           <XCircleIcon className="h-5 w-5 text-red-500 mr-2" />
           <span>{message}</span>
         </div>,
@@ -45,7 +45,7 @@ export function notify(message, type, position) {
     }
     case "warning": {
       return toast(
-        <div className="flex items-center">
+        <div className="flex items-center break-all">
           <ExclamationIcon className="h-5 w-5 text-yellow-500 mr-2" />
           <span>{message}</span>
         </div>,
@@ -56,7 +56,7 @@ export function notify(message, type, position) {
     }
     case "info": {
       return toast(
-        <div className="flex items-center">
+        <div className="flex items-center break-all">
           <ExclamationCircleIcon className="h-5 w-5 text-yellow-300 mr-2" />
           <span>{message}</span>
         </div>,

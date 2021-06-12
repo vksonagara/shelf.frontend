@@ -5,10 +5,11 @@ import userApi from "../../api/users";
 import { useDispatch } from "react-redux";
 import { signOut } from "../../redux/auth";
 import AppLogo from "./AppLogo";
+import { Menu } from "@headlessui/react";
 
 // Menu Items for sidebar
 
-function Menu() {
+function MenuItem() {
   // active Menu Index State Managment
   const [activeMenuIndex, setActiveMenuIndex] = useState(0);
 
@@ -21,18 +22,26 @@ function Menu() {
       {/* Creating Menus with Config Files  */}
       {Menus.map((menu, index) => {
         return (
-          <div key={index}>
-            <Link to={`${menu.link}`}>
+          <div key={index} className="relative">
+            <Link
+              to={`${menu.link}`}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+              className={`${index > 0 && "disabled: cursor-not-allowed"}`}
+            >
               <div
-                className={`flex justify-center icon-container w-full cursor-pointer p-4 border-t ${
+                className={`flex justify-center icon-container w-full  p-4 border-t border-gray-500 ${
                   activeMenuIndex == index ? "active-icon-container" : ""
                 }`}
-                onClick={() => {
-                  handleMenuClick(index);
+                onClick={(e) => {
+                  if (index < 1) {
+                    handleMenuClick(index);
+                  }
                 }}
               >
                 <i
-                  className={`${menu.iconClass} ${
+                  className={`${menu.iconClass} text-white ${
                     activeMenuIndex == index ? "active-icon" : ""
                   }`}
                 ></i>
@@ -54,11 +63,11 @@ function Sidebar() {
   return (
     <div
       className="flex flex-col sidebar-container h-screen
-      fixed z-10 justify-between bg-gray-50"
+      fixed z-10 justify-between bg-secondary-dark"
     >
       {/* Icon for Collapsable folder-container and note-container */}
       <i
-        className="bi bi-chevron-right absolute top-2/4  collapse-icon text-white bg-blue-600  text-sm h-8 w-8 flex justify-center items-center rounded-full"
+        className="bi bi-chevron-right absolute top-2/4   collapse-icon text-white bg-blue-600  text-sm h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
         style={{
           right: "-10px",
           display: "none",
@@ -86,66 +95,43 @@ function Sidebar() {
         <AppLogo customStyle="block my-6 mx-3" width="90" height="90" />
 
         {/* Menu Component  */}
-        <Menu />
+        <MenuItem />
       </div>
+
       {/* User Option Component  */}
       <div className="flex justify-center border-t p-2">
-        <div class="relative inline-block">
-          <div>
-            <button
-              type="button"
-              class="justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
-              id="menu-button"
-              aria-expanded="true"
-              aria-haspopup="true"
-              onClick={() => {
-                setOptionVisible(!isOptionVisible);
-              }}
-            >
-              <i class="bi bi-person text-sm"></i>
-              <i class="bi bi-chevron-up"></i>
-            </button>
-          </div>
-
-          <div
-            class={`absolute left-0 bottom-10 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none ${
-              !isOptionVisible && "hidden"
-            }`}
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-            tabindex="-1"
-          >
-            <div class="py-1" role="none">
+        <Menu>
+          <Menu.Button className="justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
+            <i className="bi bi-person-circle text-sm"></i>
+          </Menu.Button>
+          <Menu.Items className="absolute left-2 bottom-11 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none py-1">
+            {/* <Menu.Item>
               <Link
-                href="#"
-                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
-                role="menuitem"
-                tabindex="-1"
-                id="menu-item-0"
+                to="/settings"
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
               >
                 Settings
               </Link>
+            </Menu.Item>
+            <Menu.Item>
               <Link
-                href="#"
-                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
-                role="menuitem"
-                tabindex="-1"
-                id="menu-item-1"
+                to="/profile"
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
               >
                 Profile
               </Link>
+            </Menu.Item>
+            <Menu.Item>
               <Link
-                href="#"
-                class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
-                role="menuitem"
-                tabindex="-1"
-                id="menu-item-2"
+                to="/help"
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
               >
                 Help
               </Link>
+            </Menu.Item> */}
+            <Menu.Item>
               <button
-                class="text-gray-700 block w-full text-left px-4 py-2 text-sm focus:outline-none hover:bg-gray-300 border-t"
+                className="text-gray-700 block w-full text-left px-4 py-2 text-sm focus:outline-none hover:bg-gray-300"
                 role="menuitem"
                 tabindex="-1"
                 id="menu-item-3"
@@ -158,9 +144,9 @@ function Sidebar() {
               >
                 Sign out
               </button>
-            </div>
-          </div>
-        </div>
+            </Menu.Item>
+          </Menu.Items>
+        </Menu>
       </div>
     </div>
   );

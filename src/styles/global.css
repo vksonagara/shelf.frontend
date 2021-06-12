@@ -13,7 +13,7 @@ a {
 
 /* Css for Sidebar Component  */
 
-.active-icon {
+/* .active-icon {
   color: white;
 }
 
@@ -29,43 +29,9 @@ a {
 
 .icon-container:hover:not(.active-icon-container) .icon-24 {
   color: white;
-}
+} */
 
 /* Folder Component  */
-
-.folder-icon {
-  /* text-align:center;
-    vertical-align:middle; */
-  position: relative;
-  font-size: 30px;
-}
-
-.badge {
-  position: absolute;
-  background: gray;
-  font-size: 10px;
-  top: 0;
-  right: 0;
-  text-align: center;
-  color: white;
-}
-
-.folder-para1 {
-  margin: 0;
-  font-size: 14px;
-  width: 140px;
-  margin-left: 0.5rem;
-  white-space: nowrap;
-  overflow: hidden !important;
-  text-overflow: ellipsis;
-}
-
-.folder-para2 {
-  margin: 0;
-  font-size: 11px;
-  margin-left: 0.5rem;
-}
-
 #foldersContainer::-webkit-scrollbar {
   display: none;
 }
@@ -73,39 +39,10 @@ a {
 #foldersContainer {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
+  /* height: calc(100vh-130px) !important; */
 }
 
-.notes {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-}
-
-.notes > div {
-  display: flex;
-  align-items: center;
-}
-
-.notes > div > div {
-  line-height: 1.1;
-}
-.notes-para1 {
-  margin: 0;
-  font-size: 14px;
-  width: 140px;
-  margin-left: 0.5rem;
-  white-space: nowrap;
-  overflow: hidden !important;
-  text-overflow: ellipsis;
-}
-
-.notes-para2 {
-  margin: 0;
-  font-size: 11px;
-  margin-left: 0.5rem;
-}
+/* Notes Component  */
 
 #notesContainer::-webkit-scrollbar {
   display: none;
@@ -114,22 +51,7 @@ a {
 #notesContainer {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-}
-
-.active-folder {
-  background-color: #8a8a40;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.25rem;
-}
-
-.active-note {
-  background-color: #8a8a40;
-  border-radius: 0.25rem;
-  padding: 0.25rem 0.25rem;
-}
-
-.hidden {
-  display: none;
+  /* height: calc(100vh-130px) !important; */
 }
 
 .sidebar-container {
@@ -139,113 +61,50 @@ a {
   left: 5rem;
 }
 .folder-container {
-  width: 18%;
+  width: 19rem;
+  transition: width 0.5s, padding 0.5s;
+  transition-delay: 0.5s;
 }
 
 .notes-container {
-  width: 18%;
+  transition: width 0.5s, padding 0.5s;
+  width: 19rem;
 }
 
-.notes-container-sort {
-  width: 140px;
-}
 .new-content-container {
-  width: calc(100% - 5rem);
+  width: calc(100% - 5rem) !important;
+  transition: all 0.5s;
+  transition-delay: 0.5s;
 }
 .demo-editor {
-  height: 45rem !important;
   overflow: auto !important;
 }
 
 .demo-wrapper {
-  width: 80%;
-}
-
-.new-demo-wrapper {
-  width: 95% !important;
+  width: 100%;
 }
 
 .content-container {
-  width: calc(64% - 5rem);
+  width: calc(100% - 43rem);
 }
 
 @media screen and (max-width: 1366px) {
-  .notes-dashboard {
-    left: 5rem;
-  }
   .folder-container {
-    width: 24%;
-  }
-  .folder-para1 {
-    width: 80px;
-  }
-  .folder-container-sort {
-    width: 80px;
+    width: 16rem;
   }
   .notes-container {
-    width: 24%;
-  }
-  .notes-para1 {
-    width: 80px;
-  }
-  .notes-container-sort {
-    width: 80px;
-  }
-  .demo-editor {
-    height: 35rem !important;
-    overflow: auto !important;
+    width: 16rem;
   }
   .content-container {
-    width: calc(52% - 5rem);
+    width: calc(100% - 37rem);
   }
-  .new-content-container {
-    width: calc(100% -7rem);
+  .demo-editor {
+    overflow: auto !important;
   }
-}
-
-i:hover {
-  cursor: pointer;
-}
-
-#noteTitle {
-  font-size: larger;
-  outline: none;
-  border-bottom: 1px solid gray;
-}
-
-.notes-container {
-  background-color: rgb(47 86 123);
-  height: 100vh;
-  padding: 1rem 1rem;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: all 0.5s;
 }
 
 .animation {
-  /* animation-name: fadeIn;
-  animation-duration: 4s;
-  display: none !important; */
   width: 0 !important;
   overflow: hidden;
   padding: 0 !important;
-}
-
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
