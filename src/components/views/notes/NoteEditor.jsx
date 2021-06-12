@@ -12,6 +12,7 @@ import htmlToDraft from "html-to-draftjs";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import notesApi from "../../../api/notes";
 import { useSelector } from "react-redux";
+import Skeleton from "react-loading-skeleton";
 
 const debouncedConsoleLog = _.debounce(
   async (lastContent, currentContent, noteId) => {
@@ -22,11 +23,14 @@ const debouncedConsoleLog = _.debounce(
   500
 );
 
-function NoteEditor() {
+function NoteEditor({ innerRef, height, width }) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [htmlContentState, setHtmlContentState] = useState("");
   const { currentNoteId } = useSelector((state) => state.notes);
   const { currentFolderId } = useSelector((state) => state.folders);
+
+  // loader state
+  const [loading, setLoading] = useState(true);
 
   function onEditorStateChange(editorState) {
     if (currentFolderId !== "archive") {
@@ -39,6 +43,7 @@ function NoteEditor() {
   }
 
   useEffect(() => {
+    setLoading(true);
     if (currentFolderId == "archive" && currentNoteId) {
       notesApi.getDetailOfArchivedNote(currentNoteId).then((data) => {
         if (data.data) {
@@ -50,6 +55,7 @@ function NoteEditor() {
           );
           const editorNewState = EditorState.createWithContent(contentState);
           setEditorState(editorNewState);
+          setLoading(false);
           document
             .querySelector(".public-DraftEditor-content")
             .setAttribute("contenteditable", false);
@@ -66,6 +72,7 @@ function NoteEditor() {
           );
           const editorNewState = EditorState.createWithContent(contentState);
           setEditorState(editorNewState);
+          setLoading(false);
           document
             .querySelector(".public-DraftEditor-content")
             .setAttribute("contenteditable", true);
@@ -73,25 +80,38 @@ function NoteEditor() {
       });
     } else {
       setEditorState(EditorState.createEmpty());
+      setLoading(false);
     }
   }, [currentNoteId]);
 
-  return (
+  return loading ? (
     <div
+      className="w-full flex justify-center mt-2"
+      ref={innerRef}
       style={{
-        padding: "1rem 0",
-        overflow: "hidden",
-        display: "flex",
-        justifyContent: "center",
+        height: `${height}px`,
       }}
     >
-      <Editor
-        editorState={editorState}
-        onEditorStateChange={onEditorStateChange}
-        wrapperClassName="demo-wrapper"
-        editorClassName="demo-editor"
-        toolbarClassName="demo-toolbar"
-      />
+      <Skeleton count={1} />
+      <Skeleton height={`${height - 40}px`} width={`${width - 10}px`} />
+    </div>
+  ) : (
+    <div
+      className="w-full flex justify-center mt-2"
+      ref={innerRef}
+      style={{
+        height: `${height}px`,
+      }}
+    >
+      <div className="py-2 px-2 overflow-hidden flex justify-center border border-gray-300 w-full  mx-2 mb-2">
+        <Editor
+          editorState={editorState}
+          onEditorStateChange={onEditorStateChange}
+          wrapperClassName="demo-wrapper"
+          editorClassName="demo-editor text-white"
+          toolbarClassName="demo-toolbar bg-primary-dark"
+        />
+      </div>
     </div>
   );
 }

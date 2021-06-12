@@ -1,20 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "react-redux";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./styles/font.css";
 import "./styles/global.css";
 import store from "./redux/store";
-import { Provider } from "react-redux";
 import { interceptor } from "./api";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import "./styles/tailwind.css";
 
 interceptor(store);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}><App /></Provider>
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,39 +1,16 @@
-import { Dropdown, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Menus from "../../config/menu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import userApi from "../../api/users";
 import { useDispatch } from "react-redux";
 import { signOut } from "../../redux/auth";
-
-// Special Logo for only Sidebar
-function Logo() {
-  return (
-    <div
-      className="border-bottom d-flex justify-content-center"
-      style={{
-        width: "100%",
-        cursor: "pointer",
-      }}
-    >
-      <Link
-        to="/"
-        className="p-2 m-3 text-primary"
-        style={{
-          color: "black",
-          fontWeight: "700",
-          fontSize: "21px",
-        }}
-      >
-        Shelf
-      </Link>
-    </div>
-  );
-}
+import AppLogo from "./AppLogo";
+import { Menu } from "@headlessui/react";
 
 // Menu Items for sidebar
 
-function Menu() {
+function MenuItem() {
+  // active Menu Index State Managment
   const [activeMenuIndex, setActiveMenuIndex] = useState(0);
 
   function handleMenuClick(index) {
@@ -41,68 +18,58 @@ function Menu() {
   }
 
   return (
-    <div
-      style={{
-        width: "100%",
-      }}
-    >
+    <div className="w-full">
+      {/* Creating Menus with Config Files  */}
       {Menus.map((menu, index) => {
         return (
-          <OverlayTrigger
-            placement="right"
-            overlay={<Tooltip id={`tooltip-right`}>{menu.title}</Tooltip>}
-            key={index}
-          >
-            <Link to={`${menu.link}`}>
+          <div key={index} className="relative">
+            <Link
+              to={`${menu.link}`}
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+              className={`${index > 0 && "disabled: cursor-not-allowed"}`}
+            >
               <div
-                className={`border-bottom d-flex justify-content-center icon-container  ${
+                className={`flex justify-center icon-container w-full  p-4 border-t border-gray-500 ${
                   activeMenuIndex == index ? "active-icon-container" : ""
                 }`}
-                style={{
-                  width: "100%",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  handleMenuClick(index);
+                onClick={(e) => {
+                  if (index < 1) {
+                    handleMenuClick(index);
+                  }
                 }}
               >
-                {menu.iconUrl ? (
-                  <img src={menu.iconUrl} />
-                ) : (
-                  <i
-                    className={`${menu.iconClass} ${
-                      activeMenuIndex == index ? "active-icon" : ""
-                    }`}
-                  ></i>
-                )}
+                <i
+                  className={`${menu.iconClass} text-white ${
+                    activeMenuIndex == index ? "active-icon" : ""
+                  }`}
+                ></i>
               </div>
             </Link>
-          </OverlayTrigger>
+          </div>
         );
       })}
     </div>
   );
 }
 
-// Sidebar Componet
+// Sidebar Component
 function Sidebar() {
   const dispatch = useDispatch();
+
+  // state for option Menu
+  const [isOptionVisible, setOptionVisible] = useState(false);
   return (
     <div
-      style={{
-        height: "100vh",
-        position: "fixed",
-        zIndex: "10",
-      }}
-      className="bg-light d-flex flex-column justify-content-between sidebar-container"
+      className="flex flex-col sidebar-container h-screen
+      fixed z-10 justify-between bg-secondary-dark"
     >
+      {/* Icon for Collapsable folder-container and note-container */}
       <i
-        className="bi bi-caret-right-square icon-28 collapse-icon"
+        className="bi bi-chevron-right absolute top-2/4   collapse-icon text-white bg-blue-600  text-sm h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
         style={{
-          position: "absolute",
           right: "-10px",
-          color: "black",
-          top: "40%",
           display: "none",
         }}
         onClick={(e) => {
@@ -121,46 +88,65 @@ function Sidebar() {
             .classList.remove("new-demo-wrapper");
         }}
       ></i>
+
+      {/* Sidebar  */}
       <div>
-        <Logo />
-        <Menu />
+        {/* App Logo  */}
+        <AppLogo customStyle="block my-6 mx-3" width="90" height="90" />
+
+        {/* Menu Component  */}
+        <MenuItem />
       </div>
-      <div className="d-flex justify-content-center border-top p-2">
-        <Dropdown>
-          <Dropdown.Toggle id="dropdown-basic" variant="light">
-            {/* <img src="/images/person.svg" alt="" /> */}
-            <i className="bi bi-person-circle icon-20"></i>
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Link to="/setting">
-              <Dropdown.Item eventKey="1" as="div">
-                Setting
-              </Dropdown.Item>
-            </Link>
-            <Link to="/profile">
-              <Dropdown.Item eventKey="2" as="div">
+
+      {/* User Option Component  */}
+      <div className="flex justify-center border-t p-2">
+        <Menu>
+          <Menu.Button className="justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
+            <i className="bi bi-person-circle text-sm"></i>
+          </Menu.Button>
+          <Menu.Items className="absolute left-2 bottom-11 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none py-1">
+            {/* <Menu.Item>
+              <Link
+                to="/settings"
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
+              >
+                Settings
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link
+                to="/profile"
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
+              >
                 Profile
-              </Dropdown.Item>
-            </Link>
-            <Link to="/help">
-              <Dropdown.Item eventKey="3" as="div">
+              </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link
+                to="/help"
+                className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
+              >
                 Help
-              </Dropdown.Item>
-            </Link>
-            <Dropdown.Divider />
-            <Dropdown.Item
-              eventKey="4"
-              onClick={async () => {
-                const { error } = await userApi.signout();
-                if (!error) {
-                  dispatch(signOut());
-                }
-              }}
-            >
-              Sign Out
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+              </Link>
+            </Menu.Item> */}
+            <Menu.Item>
+              <button
+                className="text-gray-700 block w-full text-left px-4 py-2 text-sm focus:outline-none hover:bg-gray-300"
+                role="menuitem"
+                tabindex="-1"
+                id="menu-item-3"
+                onClick={async () => {
+                  const { error } = await userApi.signout();
+                  if (!error) {
+                    dispatch(signOut());
+                  }
+                }}
+              >
+                Sign out
+              </button>
+            </Menu.Item>
+          </Menu.Items>
+        </Menu>
       </div>
     </div>
   );

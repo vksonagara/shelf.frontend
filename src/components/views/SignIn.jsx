@@ -1,55 +1,31 @@
+// imported dependencies
 import _ from "lodash";
 import { useDispatch } from "react-redux";
-import { Form, Button } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
-import { Formik, Field } from "formik";
-import { useState } from "react";
-import { DangerMessage } from "../common/Message";
+import { Link } from "react-router-dom";
+import { Field, Formik } from "formik";
 import { signInSchema } from "../../utils/ValidationUtil";
 import AppLogo from "../common/AppLogo";
 import userApi from "../../api/users";
 import { signIn } from "../../redux/auth";
+import { notify } from "../common/Toast";
+import Input from "../common/Form/Input";
+import Button from "../common/Form/Button";
+import VectorBg from "../common/VectorBg";
 
-function ValidationError({ err }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-      }}
-    >
-      <p
-        className="m-0 p-0 text-danger"
-        style={{
-          fontSize: "11px",
-        }}
-      >
-        {err}
-      </p>
-    </div>
-  );
-}
-
+// SignIn Component
 function SignIn() {
-  const [isMeesageVisible, setMessageVisible] = useState({});
   const dispatch = useDispatch();
 
   return (
-    <div className="d-flex flex-column align-items-center">
-      <AppLogo />
+    <div className="flex flex-col items-center h-screen bg-gray-100">
+      {/* App Logo  */}
 
-      <section
-        className="d-flex flex-column align-items-center"
-        style={{
-          boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 10px",
-          marginTop: "1rem",
-          padding: "1rem 2rem",
-          width: "400px",
-          boxSizing: "border-box",
-        }}
-      >
-        {isMeesageVisible.isError && (
-          <DangerMessage message={isMeesageVisible.message} />
-        )}
+      <AppLogo customStyle="m-8" width="80" height="80" />
+
+      {/* SignIn Component  */}
+
+      <section className="flex flex-col w-96 items-center py-4 px-8 mt-4 bg-white shadow-lg rounded-lg">
+        {/* Using Formik For Validation  */}
 
         <Formik
           validationSchema={signInSchema}
@@ -58,16 +34,16 @@ function SignIn() {
             password: "",
             rememberMe: false,
           }}
+          // Hitting SignIn API after form submit
+
           onSubmit={async (values, { setSubmitting }) => {
             const { data, error } = await userApi.signin(values);
 
             setSubmitting(false);
 
             if (error) {
-              setMessageVisible({
-                isError: true,
-                message: error,
-              });
+              // Showing Toast on error
+              notify(error, "danger");
             } else {
               dispatch(signIn(data));
             }
@@ -84,52 +60,37 @@ function SignIn() {
           }) => {
             return (
               <>
-                <h5
-                  style={{
-                    color: "rgb(94, 108, 132)",
-                    fontSize: "16px",
-                    margin: "1.25rem 0",
-                    fontWeight: "700",
-                  }}
-                >
-                  Sign in to Shelf
+                <h5 className="text-gray-400  text-lg font-bold my-5">
+                  Sign In to Shelf
                 </h5>
-                <Form.Control
+                {/* Email Field  */}
+
+                <Input
                   type="email"
                   placeholder="Enter email"
-                  className={`input  ${
-                    touched.emailId && errors.emailId ? "pa-error" : ""
-                  }`}
                   name="emailId"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.emailId}
+                  errorMessage={touched.emailId && errors.emailId}
                 />
-                {touched.emailId && errors.emailId && (
-                  <ValidationError err={errors.emailId} />
-                )}
-                <Form.Control
+
+                {/* Password Field  */}
+
+                <Input
                   type="password"
                   placeholder="Enter password"
-                  className={`input  ${
-                    touched.password && errors.password ? "pa-error" : ""
-                  }`}
                   name="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
+                  errorMessage={touched.password && errors.password}
                 />
-                {touched.password && errors.password && (
-                  <ValidationError err={errors.password} />
-                )}
-                <div
-                  style={{
-                    width: "100%",
-                    marginTop: "1rem",
-                    fontSize: "0.8rem",
-                  }}
-                >
-                  <label className="d-flex align-items-center">
+
+                {/* Remember me checkbox  */}
+
+                <div className="w-full mt-4 text-sm">
+                  <div className="flex items-center">
                     <Field
                       type="checkbox"
                       name="rememberMe"
@@ -139,26 +100,23 @@ function SignIn() {
                       className="mr-2"
                     />
                     Remember me
-                  </label>
+                  </div>
                 </div>
+
+                {/* Submit Button  */}
+
                 <Button
-                  variant="primary"
-                  block
-                  className="m-4  "
-                  style={{
-                    fontSize: "14px",
-                  }}
                   disabled={isSubmitting}
                   type="submit"
                   onClick={handleSubmit}
                 >
                   Sign In
-                </Button>{" "}
-                <p>Or</p>
-                <Button
-                  block
-                  className="d-flex flex-row align-items-center justify-content-center"
-                  variant="light"
+                </Button>
+
+                <p className="my-4">Or</p>
+
+                <button
+                  className="flex flex-row items-center justify-center bg-gray-200 w-full py-3 px-4 rounded-md mb-2"
                   disabled={isSubmitting}
                 >
                   <img
@@ -167,31 +125,29 @@ function SignIn() {
                     width="20"
                     height="20"
                   />
-                  <span
-                    style={{
-                      color: "#505f79",
-                      fontSize: "14px",
-                      fontWeight: "600",
-                      marginLeft: "0.25rem",
-                    }}
-                  >
+
+                  <span className="text-blue-250 text-sm font-semibold ml-2">
                     Continue with Google
                   </span>
-                </Button>
+                </button>
               </>
             );
           }}
         </Formik>
-        <Link
-          to="/signup"
-          style={{
-            fontSize: "0.85rem",
-            margin: "1rem 0",
-          }}
-        >
-          Sign Up for new account
-        </Link>
+
+        {/* Footer Of SignIn  */}
+        <div className="flex flex-col w-full">
+          <Link to="/signup" className="text-sm my-2 text-blue-500 ">
+            Sign Up for new Account?
+          </Link>
+          <Link to="/forgot-password" className="text-sm text-blue-500">
+            Forgot Password
+          </Link>
+        </div>
       </section>
+
+      {/* background for SignIn  */}
+      <VectorBg />
     </div>
   );
 }

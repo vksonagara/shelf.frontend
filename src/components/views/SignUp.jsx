@@ -1,53 +1,24 @@
-import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { SuccessMessage, DangerMessage } from "../common/Message";
 import { Formik } from "formik";
 import { signUpSchema } from "../../utils/ValidationUtil";
 import AppLogo from "../common/AppLogo";
 import userApi from "../../api/users";
+import { notify } from "../common/Toast";
+import Input from "../common/Form/Input";
+import Button from "../common/Form/Button";
+import VectorBg from "../common/VectorBg";
 
-function ValidationError({ err }) {
-  return (
-    <div
-      style={{
-        width: "100%",
-      }}
-    >
-      <p
-        className="m-0 p-0 text-danger"
-        style={{
-          fontSize: "11px",
-        }}
-      >
-        {err}
-      </p>
-    </div>
-  );
-}
-
+// SignUp component
 function SignUp() {
-  const [isMeesageVisible, setMessageVisible] = useState({});
   return (
-    <div className="d-flex flex-column align-items-center">
-      <AppLogo />
+    <div className="flex flex-col items-center min-h-screen bg-gray-100">
+      {/* App Logo  */}
 
-      <section
-        className="d-flex flex-column align-items-center"
-        style={{
-          boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 10px",
-          marginTop: "1rem",
-          padding: "1rem 2rem",
-          maxWidth: "400px",
-          boxSizing: "border-box",
-        }}
-      >
-        {isMeesageVisible.isError && (
-          <DangerMessage message={isMeesageVisible.message} />
-        )}
-        {isMeesageVisible.message && !isMeesageVisible.isError && (
-          <SuccessMessage message={isMeesageVisible.message} />
-        )}
+      <AppLogo customStyle="m-8" width="80" height="80" />
+
+      {/* Signup Component  */}
+      <section className="flex flex-col w-96 items-center py-4 px-8 mt-4 bg-white shadow-lg rounded-lg">
+        {/* Using Formik For Validation  */}
 
         <Formik
           validationSchema={signUpSchema}
@@ -57,21 +28,20 @@ function SignUp() {
             emailId: "",
             password: "",
           }}
+          // hitting signup API after form submit
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             const { error } = await userApi.signup(values);
 
             setSubmitting(false);
 
+            // Showing Toast
             if (error) {
-              setMessageVisible({
-                isError: true,
-                message: error,
-              });
+              notify(error, "danger");
             } else {
-              setMessageVisible({
-                isError: false,
-                message: `A verification link has been sent to ${values.emailId}`,
-              });
+              notify(
+                `A verification link has been sent to ${values.emailId}`,
+                "sucess"
+              );
               resetForm({});
             }
           }}
@@ -87,104 +57,76 @@ function SignUp() {
           }) => {
             return (
               <>
-                <h5
-                  style={{
-                    color: "rgb(94, 108, 132)",
-                    fontSize: "16px",
-                    margin: "1.25rem 0",
-                    fontWeight: "700",
-                  }}
-                >
+                <h5 className="text-gray-400  text-lg font-bold my-5">
                   Sign up for your account
                 </h5>
-                <Form.Control
+                <Input
                   type="text"
                   placeholder="First name"
-                  className={`input  ${
-                    touched.firstName && errors.firstName ? "pa-error" : ""
-                  }`}
                   name="firstName"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.firstName}
+                  errorMessage={touched.firstName && errors.firstName}
                 />
-                {touched.firstName && errors.firstName && (
-                  <ValidationError err={errors.firstName} />
-                )}
-                <Form.Control
+
+                <Input
                   type="text"
                   placeholder="Last name"
-                  className={`input  ${
-                    touched.lastName && errors.lastName ? "pa-error" : ""
-                  }`}
                   name="lastName"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.lastName}
+                  errorMessage={touched.lastName && errors.lastName}
                 />
-                {touched.lastName && errors.lastName && (
-                  <ValidationError err={errors.lastName} />
-                )}
-                <Form.Control
+
+                <Input
                   type="email"
                   placeholder="Enter email"
-                  className={`input  ${
-                    touched.emailId && errors.emailId ? "pa-error" : ""
-                  }`}
                   name="emailId"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.emailId}
+                  errorMessage={touched.emailId && errors.emailId}
                 />
-                {touched.emailId && errors.emailId && (
-                  <ValidationError err={errors.emailId} />
-                )}
-                <Form.Control
+
+                <Input
                   type="password"
                   placeholder="Enter password"
-                  className={`input  ${
-                    touched.password && errors.password ? "pa-error" : ""
-                  }`}
                   name="password"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
+                  errorMessage={touched.password && errors.password}
                 />
-                {touched.password && errors.password && (
-                  <ValidationError err={errors.password} />
-                )}
-                <p
-                  className="mt-3"
-                  style={{
-                    color: "#5E6C84",
-                    fontSize: "12px",
-                    lineHeight: "1rem",
-                    marginTop: "0.5rem",
-                  }}
-                >
+
+                <p className="text-gray-400 text-xs mt-3 leading-4">
                   By signing up, I accept the
-                  <Link to="/terms"> Terms of Service</Link> and acknowledge the
-                  <Link to="/privacy"> Privacy Policy</Link> .
+                  <Link to="/terms" className="text-xs  text-blue-400">
+                    {" "}
+                    Terms of Service
+                  </Link>{" "}
+                  and acknowledge the
+                  <Link to="/privacy" className="text-xs  text-blue-400">
+                    {" "}
+                    Privacy Policy
+                  </Link>{" "}
+                  .
                 </p>
+
                 <Button
-                  variant="primary"
-                  block
-                  className="m-3"
-                  style={{
-                    fontSize: "14px",
-                  }}
                   disabled={isSubmitting}
                   type="submit"
                   onClick={handleSubmit}
                 >
                   Sign Up
-                </Button>{" "}
-                <p>Or</p>
-                <Button
-                  block
-                  className="d-flex flex-row align-items-center justify-content-center"
-                  variant="light"
+                </Button>
+
+                <p className="my-4">Or</p>
+
+                <button
                   disabled={isSubmitting}
+                  className="flex flex-row items-center justify-center bg-gray-200 w-full py-3 px-4 rounded-md mb-2"
                 >
                   <img
                     src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/5.0.232/static/media/google-logo.c21ca9d1.svg"
@@ -192,31 +134,19 @@ function SignUp() {
                     width="20"
                     height="20"
                   />
-                  <span
-                    style={{
-                      color: "#505f79",
-                      fontSize: "14px",
-                      fontWeight: "600",
-                      marginLeft: "0.25rem",
-                    }}
-                  >
+                  <span className="text-blue-250 text-sm font-semibold ml-2">
                     Continue with Google
                   </span>
-                </Button>
+                </button>
               </>
             );
           }}
         </Formik>
-        <Link
-          to="/signin"
-          style={{
-            fontSize: "0.85rem",
-            margin: "1rem 0",
-          }}
-        >
+        <Link to="/signin" className="text-sm my-2 text-blue-500">
           Already have an account? Sign In
         </Link>
       </section>
+      <VectorBg />
     </div>
   );
 }

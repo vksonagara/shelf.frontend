@@ -27,7 +27,7 @@ export const foldersSlice = createSlice({
         name: folder.name,
         id: folder._id,
         updatedAt: folder.updatedAt,
-        notesCount: folder.notesCount,
+        notesCount: folder.__v,
       };
 
       const { folders, currentFolderId } = state;
