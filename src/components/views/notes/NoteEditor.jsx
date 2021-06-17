@@ -12,7 +12,7 @@ import htmlToDraft from "html-to-draftjs";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import notesApi from "../../../api/notes";
 import { useSelector } from "react-redux";
-import Skeleton from "react-loading-skeleton";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const debouncedConsoleLog = _.debounce(
   async (lastContent, currentContent, noteId) => {
@@ -85,31 +85,32 @@ function NoteEditor({ innerRef, height, width }) {
   }, [currentNoteId]);
 
   return loading ? (
-    <div
-      className="w-full flex justify-center mt-2"
-      ref={innerRef}
-      style={{
-        height: `${height}px`,
-      }}
-    >
-      <Skeleton count={1} />
-      <Skeleton height={`${height - 40}px`} width={`${width - 10}px`} />
-    </div>
+    <SkeletonTheme color="#242023" highlightColor="#24202322">
+      <div
+        className="w-full flex justify-center mt-2 px-2"
+        ref={innerRef}
+        style={{
+          height: `${height}px`,
+        }}
+      >
+        <Skeleton height={`${height - 40}px`} width={`${width - 50}px`} />
+      </div>
+    </SkeletonTheme>
   ) : (
     <div
-      className="w-full flex justify-center mt-2"
+      className="w-full flex justify-center mt-2 px-2"
       ref={innerRef}
       style={{
         height: `${height}px`,
       }}
     >
-      <div className="py-2 px-2 overflow-hidden flex justify-center border border-gray-300 w-full  mx-2 mb-2">
+      <div className="py-2 px-2 overflow-hidden flex justify-center w-full  mx-2 mb-2">
         <Editor
           editorState={editorState}
           onEditorStateChange={onEditorStateChange}
           wrapperClassName="demo-wrapper"
           editorClassName="demo-editor text-white"
-          toolbarClassName="demo-toolbar bg-primary-dark"
+          toolbarClassName="demo-toolbar bg-primary-dark border border-primary-base rounded"
         />
       </div>
     </div>

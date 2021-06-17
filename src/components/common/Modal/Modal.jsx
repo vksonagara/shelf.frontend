@@ -3,6 +3,13 @@ import { Fragment } from "react";
 
 // Default Modal for All
 function Modal(prop) {
+  document.onkeypress = async (e) => {
+    if (prop.show.value && e.keyCode === 13) {
+      await prop.handleClose();
+      prop.func();
+    }
+  };
+
   return (
     <>
       <Transition appear show={prop.show.value} as={Fragment}>

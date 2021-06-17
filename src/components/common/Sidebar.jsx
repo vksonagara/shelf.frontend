@@ -31,7 +31,7 @@ function MenuItem() {
               className={`${index > 0 && "disabled: cursor-not-allowed"}`}
             >
               <div
-                className={`flex justify-center icon-container w-full  p-4 border-t border-gray-500 ${
+                className={`flex justify-center icon-container w-full  p-4 border-t border-primary-base  hover:bg-primary-light ${
                   activeMenuIndex == index ? "active-icon-container" : ""
                 }`}
                 onClick={(e) => {
@@ -67,25 +67,31 @@ function Sidebar() {
     >
       {/* Icon for Collapsable folder-container and note-container */}
       <i
-        className="bi bi-chevron-right absolute top-2/4   collapse-icon text-white bg-blue-600  text-sm h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
+        className="bi bi-chevron-right absolute top-2/4   collapse-icon text-white bg-primary-base  text-sm h-8 w-8 flex justify-center items-center rounded-full cursor-pointer hover:bg-primary-light"
         style={{
           right: "-10px",
           display: "none",
         }}
         onClick={(e) => {
-          document
-            .querySelector(".notes-container")
-            .classList.remove("animation");
+          if (document.querySelector(".notes-container")) {
+            document
+              .querySelector(".notes-container")
+              .classList.remove("animation");
+          }
           document
             .querySelector(".folder-container")
             .classList.remove("animation");
-          document
-            .querySelector(".content-container")
-            .classList.remove("new-content-container");
+          if (document.querySelector(".content-container")) {
+            document
+              .querySelector(".content-container")
+              .classList.remove("new-content-container");
+          }
           e.target.style.display = "none";
-          document
-            .querySelector(".demo-wrapper")
-            .classList.remove("new-demo-wrapper");
+          if (document.querySelector(".demo-wrapper")) {
+            document
+              .querySelector(".demo-wrapper")
+              .classList.remove("new-demo-wrapper");
+          }
         }}
       ></i>
 
@@ -99,10 +105,10 @@ function Sidebar() {
       </div>
 
       {/* User Option Component  */}
-      <div className="flex justify-center border-t p-2">
+      <div className="flex justify-center border border-primary-base p-2">
         <Menu>
-          <Menu.Button className="justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none">
-            <i className="bi bi-person-circle text-sm"></i>
+          <Menu.Button className="justify-center w-full rounded-md  shadow-sm px-4 py-2 bg-primary-base text-sm font-medium text-gray-700 hover:bg-primary-light focus:outline-none">
+            <i className="bi bi-person-circle text-sm text-white"></i>
           </Menu.Button>
           <Menu.Items className="absolute left-2 bottom-11 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none py-1">
             {/* <Menu.Item>

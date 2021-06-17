@@ -122,7 +122,7 @@ function SignUp() {
                   Sign Up
                 </Button>
 
-                <p className="my-4">Or</p>
+                {/* <p className="my-4">Or</p>
 
                 <button
                   disabled={isSubmitting}
@@ -137,7 +137,7 @@ function SignUp() {
                   <span className="text-blue-250 text-sm font-semibold ml-2">
                     Continue with Google
                   </span>
-                </button>
+                </button> */}
               </>
             );
           }}

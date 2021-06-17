@@ -62,19 +62,21 @@ a {
 }
 .folder-container {
   width: 19rem;
-  transition: width 0.5s, padding 0.5s;
-  transition-delay: 0.5s;
+  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1),
+    padding 0.3s cubic-bezier(0.2, 0, 0, 1);
+  transition-delay: 0.3s;
 }
 
 .notes-container {
-  transition: width 0.5s, padding 0.5s;
+  transition: width 0.3s cubic-bezier(0.2, 0, 0, 1),
+    padding 0.3s cubic-bezier(0.2, 0, 0, 1);
   width: 19rem;
 }
 
 .new-content-container {
   width: calc(100% - 5rem) !important;
-  transition: all 0.5s;
-  transition-delay: 0.5s;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  transition-delay: 0.3s;
 }
 .demo-editor {
   overflow: auto !important;
