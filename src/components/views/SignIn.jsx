@@ -113,7 +113,7 @@ function SignIn() {
                   Sign In
                 </Button>
 
-                <p className="my-4">Or</p>
+                {/* <p className="my-4">Or</p>
 
                 <button
                   className="flex flex-row items-center justify-center bg-gray-200 w-full py-3 px-4 rounded-md mb-2"
@@ -129,14 +129,14 @@ function SignIn() {
                   <span className="text-blue-250 text-sm font-semibold ml-2">
                     Continue with Google
                   </span>
-                </button>
+                </button> */}
               </>
             );
           }}
         </Formik>
 
         {/* Footer Of SignIn  */}
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col w-full mt-2">
           <Link to="/signup" className="text-sm my-2 text-blue-500 ">
             Sign Up for new Account?
           </Link>

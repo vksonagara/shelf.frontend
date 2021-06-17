@@ -102,7 +102,7 @@ function FolderContainer() {
         }}
       >
         {loading ? (
-          <CreateSkeleton num={10} />
+          <CreateSkeleton num={10} color="#522d52" highlightColor="#563056" />
         ) : (
           <>
             {/* Archive Folder  */}
@@ -116,27 +116,18 @@ function FolderContainer() {
               }}
             >
               <div
-                // Changing Redux State on Folder Change
+                className="flex items-center w-56" // Changing Redux State on Folder Change
                 onClick={async () => {
                   dispatch(changeCurrentFolder("archive"));
                 }}
-                className="flex items-center"
               >
-                {/* <i
-                  className="bi bi-folder text-3xl relative"
-                  style={{
-                    color: "#ef9c00",
-                  }}
-                > */}
                 <i
                   className={`bi bi-folder relative text-3xl  ${
                     currentFolderId == "archive"
                       ? "tex-white"
                       : "text-info-base"
                   }`}
-                >
-                  <div className="badge"></div>
-                </i>
+                ></i>
 
                 <div className="leading-4">
                   <p className="m-0 text-sm  ml-2">Archive</p>
@@ -175,7 +166,7 @@ function FolderContainer() {
                   >
                     <i
                       className={`bi bi-folder relative text-3xl  ${
-                        currentFolderId == id ? "tex-white" : "text-info-base"
+                        currentFolderId == id ? "text-white" : "text-info-base"
                       }`}
                     >
                       <div

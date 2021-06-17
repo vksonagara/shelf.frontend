@@ -65,7 +65,7 @@ function NoteList({ loading, setLoading }) {
       }}
     >
       {loading ? (
-        <CreateSkeleton num={10} />
+        <CreateSkeleton num={10} color="#522d52" highlightColor="#563056" />
       ) : (
         <>
           {notes.map((note) => {
@@ -180,7 +180,7 @@ function ArchiveNoteList({ loading, setLoading }) {
   return (
     <>
       {loading ? (
-        <CreateSkeleton num={10} />
+        <CreateSkeleton num={10} color="#522d52" highlightColor="#563056" />
       ) : (
         <div
           id="notesContainer"
@@ -333,7 +333,7 @@ function NotesContainer() {
     <div className="notes-container h-screen p-4 flex-col flex relative text-white bg-primary-dark">
       {currentNoteId && (
         <i
-          className="bi bi-chevron-left absolute top-2/4   collapse-icon text-white bg-blue-600  text-sm h-8 w-8 flex justify-center items-center rounded-full cursor-pointer"
+          className="bi bi-chevron-left absolute top-2/4   collapse-icon text-white bg-primary-base  text-sm h-8 w-8 flex justify-center items-center rounded-full cursor-pointer hover:bg-primary-light"
           style={{
             right: "-10px",
           }}

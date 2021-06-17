@@ -41,7 +41,7 @@ function TitleInput() {
       {loading ? (
         <Skeleton count={1} />
       ) : (
-        <div className="w-full py-4 border border-gray-300 mt-2 px-4 mx-2">
+        <div className="w-full py-4 mt-2 px-4 mx-2">
           <input
             type="text"
             disabled={isDisabled}
@@ -51,7 +51,7 @@ function TitleInput() {
               saveNoteName(e.target.value, currentNoteId, dispatch);
             }}
             id="noteTitle"
-            className="text-xl outline-none border-b border-gray-300 w-full h-10 bg-gray-200 pl-2"
+            className="text-xl outline-none text-white w-full h-10 bg-primary-dark px-2 py-7 border border-primary-base rounded"
           />
         </div>
       )}
