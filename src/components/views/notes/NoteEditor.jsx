@@ -104,12 +104,12 @@ function NoteEditor({ innerRef, height, width }) {
         height: `${height}px`,
       }}
     >
-      <div className="py-2 px-2 overflow-hidden flex justify-center w-full  mx-2 mb-2">
+      <div className="py-2 px-2 overflow-hidden flex justify-center w-full  mx-2 mb-2 h-full">
         <Editor
           editorState={editorState}
           onEditorStateChange={onEditorStateChange}
           wrapperClassName="demo-wrapper"
-          editorClassName="demo-editor text-white"
+          editorClassName="demo-editor text-white h-5/6"
           toolbarClassName="demo-toolbar bg-primary-dark border border-primary-base rounded"
         />
       </div>

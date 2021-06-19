@@ -39,7 +39,6 @@ a {
 #foldersContainer {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  /* height: calc(100vh-130px) !important; */
 }
 
 /* Notes Component  */
@@ -51,7 +50,6 @@ a {
 #notesContainer {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  /* height: calc(100vh-130px) !important; */
 }
 
 .sidebar-container {
@@ -80,6 +78,7 @@ a {
 }
 .demo-editor {
   overflow: auto !important;
+  /* height: calc(100vh - 18rem) !important; */
 }
 
 .demo-wrapper {
@@ -100,13 +99,25 @@ a {
   .content-container {
     width: calc(100% - 37rem);
   }
-  .demo-editor {
-    overflow: auto !important;
-  }
 }
 
 .animation {
   width: 0 !important;
   overflow: hidden;
   padding: 0 !important;
+}
+
+/* Homepage Animation  */
+.homepage-heading1 {
+  animation-name: rotate;
+  animation-duration: 1s;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }

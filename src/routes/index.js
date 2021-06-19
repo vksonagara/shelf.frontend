@@ -1,4 +1,5 @@
 import ForgotPassword from "../components/views/ForgotPassword";
+import Home from "../components/views/Home";
 import NotesDashboard from "../components/views/notes/NotesDashboard";
 import ResetPassword from "../components/views/ResetPassword";
 import SignIn from "../components/views/SignIn";
@@ -36,6 +37,10 @@ const routes = [
     path: "/reset-password",
     component: ResetPassword,
     onlyGuest: true,
+  },
+  {
+    path: "/",
+    component: Home,
   },
 ];
 
