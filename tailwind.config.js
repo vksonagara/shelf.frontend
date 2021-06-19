@@ -20,6 +20,9 @@ module.exports = {
         info: {
           base: "#ef9c00",
         },
+        black: {
+          light: "#2c3338",
+        },
       },
     },
   },
