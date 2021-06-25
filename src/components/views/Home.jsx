@@ -1,12 +1,17 @@
+import _ from "lodash";
 import Header from "../common/Home/Header";
 import { Link } from "react-router-dom";
 import Footer from "../common/Home/Footer";
+import { useSelector } from "react-redux";
 
 export default function Home() {
+  const auth = useSelector((state) => state.auth);
+  const isAuth = !_.isEmpty(auth);
+
   return (
     //   Home page
     <main className="bg-gray-100">
-      <Header />
+      <Header isAuth={isAuth} />
 
       {/* Getting started  */}
 
@@ -18,12 +23,21 @@ export default function Home() {
           <p className="text-center text-black-light font-medium text-lg my-5">
             All your notes, synced on all your browser by Shelf.
           </p>
-          <Link
-            to="/signup"
-            className="p-2 px-4 text-sm  rounded bg-blue-600 text-white hover:bg-blue-500"
-          >
-            Sign up now
-          </Link>
+          {!isAuth ? (
+            <Link
+              to="/signup"
+              className="p-2 px-4 text-sm  rounded bg-blue-600 text-white hover:bg-blue-500"
+            >
+              Sign up now
+            </Link>
+          ) : (
+            <Link
+              to="/notes"
+              className="p-2 px-4 text-sm  rounded bg-blue-600 text-white hover:bg-blue-500"
+            >
+              Go to Shelf
+            </Link>
+          )}
         </section>
       </div>
 
@@ -77,9 +91,50 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Our Feature  */}
+
+      <div className="mt-20 flex flex-col items-center bg-primary-light  py-6">
+        <h1 className="font-bold text-4xl text-center text-white leading-tight">
+          Our Features
+        </h1>
+        <div className="px-8 mt-8 flex justify-evenly">
+          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center">
+            <i className="bi bi-journal"></i>
+            <h1>Notes</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Praesentium magni quidem exercitationem at veniam sit? Aliquid
+              modi incidunt cupiditate iusto voluptate
+            </p>
+          </section>
+        </div>
+      </div>
+
+      {/* Upcoming Features  */}
+
+      <div className="flex flex-col items-center bg-primary-base  py-6">
+        <h1 className="font-bold text-4xl text-center text-white leading-tight">
+          Upcoming Features
+        </h1>
+        <div className="px-8 mt-8 flex justify-evenly">
+          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center">
+            <i className="bi bi-journal"></i>
+            <h1>Todo</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Praesentium magni quidem exercitationem at veniam sit? Aliquid
+              modi incidunt cupiditate iusto voluptate
+            </p>
+          </section>
+        </div>
+      </div>
+
       {/* Free Section  */}
 
-      <div className="mt-20 flex justify-center">
+      <div className="mt-20 flex justify-around items-center">
+        <div className="w-3/5 transform">
+          <img src="images/shelf-screenshot.png" alt="" loading="lazy" />
+        </div>
         <section className="max-w-2xl">
           <h1 className="font-bold text-4xl text-center text-black-light leading-tight">
             Shelf is free. And ad-free too.
@@ -91,6 +146,7 @@ export default function Home() {
           </p>
         </section>
       </div>
+
       <Footer />
     </main>
   );
