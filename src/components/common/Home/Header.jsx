@@ -8,7 +8,7 @@ export default function Header({ isAuth }) {
         <AppLogo />
       </section>
       <section>
-        <Link
+        {/* <Link
           to="/contact-us"
           className=" px-3 text-gray-900 text-sm hover:text-gray-600"
         >
@@ -19,7 +19,7 @@ export default function Header({ isAuth }) {
           className=" px-3 text-gray-900 text-sm hover:text-gray-600"
         >
           Help
-        </Link>
+        </Link> */}
         <Link
           to="/about-us"
           className=" px-3 text-gray-900 text-sm hover:text-gray-600"

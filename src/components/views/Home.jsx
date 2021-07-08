@@ -47,7 +47,7 @@ export default function Home() {
       </div>
 
       {/* What people are saying  */}
-      <div className="my-24 w-screen">
+      {/* <div className="my-24 w-screen">
         <h1 className="font-bold text-5xl text-center text-black-light leading-tight">
           What people are saying
         </h1>
@@ -89,22 +89,28 @@ export default function Home() {
             </section>
           </section>
         </div>
-      </div>
+      </div> */}
 
       {/* Our Feature  */}
 
-      <div className="mt-20 flex flex-col items-center bg-primary-light  py-6">
+      <div
+        className="mt-20 flex flex-col items-center   py-6"
+        style={{
+          backgroundColor: "#00315d",
+        }}
+      >
         <h1 className="font-bold text-4xl text-center text-white leading-tight">
           Our Features
         </h1>
-        <div className="px-8 mt-8 flex justify-evenly">
+        <div className="px-8 mt-8 flex justify-evenly w-full">
           <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center">
-            <i className="bi bi-journal"></i>
-            <h1>Notes</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium magni quidem exercitationem at veniam sit? Aliquid
-              modi incidunt cupiditate iusto voluptate
+            <i className="bi bi-journal text-2xl"></i>
+            <h1 className="text-gray-700 font-semibold text-xl p-1">Notes</h1>
+            <p className="text-gray-700 p-2">
+              This Notes app by Shelf is simple and easy to use. You can create
+              notes, archive notes and restore them. Inside Notes app you can
+              use many editor's functionallty. Use wherever you want to,
+              anywhere any time.
             </p>
           </section>
         </div>
@@ -112,18 +118,33 @@ export default function Home() {
 
       {/* Upcoming Features  */}
 
-      <div className="flex flex-col items-center bg-primary-base  py-6">
+      <div
+        className="flex flex-col items-center py-6"
+        style={{
+          backgroundColor: "#00315d",
+        }}
+      >
         <h1 className="font-bold text-4xl text-center text-white leading-tight">
           Upcoming Features
         </h1>
-        <div className="px-8 mt-8 flex justify-evenly">
-          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center">
-            <i className="bi bi-journal"></i>
-            <h1>Todo</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium magni quidem exercitationem at veniam sit? Aliquid
-              modi incidunt cupiditate iusto voluptate
+        <div className="px-8 mt-8 flex justify-center w-full">
+          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center mx-6">
+            <i className="bi bi-list-task text-3xl"></i>
+            <h1 className="text-gray-700 font-semibold text-2xl p-1">Todo</h1>
+            <p className="text-gray-700 p-2">
+              Now, on Shelf App you can create Todo task list. Easy to manage
+              all your task inside Todo app. you can add task, remove task and
+              reset task.
+            </p>
+          </section>
+          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center mx-6">
+            <i className="bi bi-calendar2-week text-2xl"></i>
+            <h1 className="text-gray-700 font-semibold text-xl p-1">
+              Calender
+            </h1>
+            <p className="text-gray-700 p-2">
+              Now, on Shelf App you can use Calender for remainder. You can set
+              a remainder for any events like Birthday, anniversary and more.
             </p>
           </section>
         </div>
