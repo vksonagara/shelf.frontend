@@ -170,7 +170,7 @@ function FolderContainer() {
                       }`}
                     >
                       <div
-                        className="absolute bg-info-base text-xs right-0 text-center text-black rounded-full h-4 w-4 flex items-center justify-center "
+                        className="absolute bg-info-base text-xs right-0 text-center text-black rounded-full h-4 w-4 flex items-center justify-center text-white"
                         style={{
                           top: "-5px",
                         }}

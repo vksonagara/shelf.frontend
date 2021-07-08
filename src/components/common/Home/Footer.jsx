@@ -20,7 +20,7 @@ export default function Footer() {
         </p>
       </section>
       <section>
-        <Link
+        {/* <Link
           to="/contact-us"
           className=" px-3 text-gray-900 text-sm hover:text-gray-600"
         >
@@ -31,7 +31,7 @@ export default function Footer() {
           className=" px-3 text-gray-900 text-sm hover:text-gray-600"
         >
           Help
-        </Link>
+        </Link> */}
         <Link
           to="/about-us"
           className=" px-3 text-gray-900 text-sm hover:text-gray-600"
