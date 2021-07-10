@@ -113,6 +113,17 @@ a {
   animation-duration: 1s;
 }
 
+.upcoming::after {
+  content: "UPCOMING";
+  background-color: #ffce32;
+  position: absolute;
+  top: 1rem;
+  left: -0.7rem;
+  font-size: 1rem;
+  padding: 4px 8px;
+  font-weight: 700;
+}
+
 @keyframes rotate {
   0% {
     transform: translateY(-100px);

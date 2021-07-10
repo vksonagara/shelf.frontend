@@ -33,18 +33,19 @@ function FolderContainer() {
     id: "",
     name: "",
   });
-  const handleRenameModalClose = ({ id, name }) =>
+  const handleRenameModalClose = (id, name) =>
     setRenameModal({
       value: false,
-      id,
-      name,
+      id: id,
+      name: name,
     });
-  const handleRenameModalShow = ({ id, name }) =>
+  const handleRenameModalShow = (id, name) => {
     setRenameModal({
       value: true,
-      id,
-      name,
+      id: id,
+      name: name,
     });
+  };
 
   // State for delete modal
   const [showDeleteModal, setDeleteModal] = useState({
@@ -147,7 +148,7 @@ function FolderContainer() {
               </Menu>
             </section>
             {/* Folder Created By User  */}
-            {folders.map((folder) => {
+            {folders.map((folder, index) => {
               const { id } = folder;
               const { name } = folder;
               return (
@@ -157,6 +158,7 @@ function FolderContainer() {
                       ? "bg-secondary-base px-2 rounded-md"
                       : ""
                   }`}
+                  key={index}
                 >
                   <div
                     onClick={() => {
@@ -196,7 +198,7 @@ function FolderContainer() {
                         <div
                           className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-300"
                           onClick={() => {
-                            handleRenameModalShow({ id, name });
+                            handleRenameModalShow(id, name);
                           }}
                         >
                           Rename
@@ -241,11 +243,13 @@ function FolderContainer() {
         handleShow={handleCreateModalShow}
       />
       {/* rename folder modal  */}
-      <RenameFolderModal
-        show={showRenameModal}
-        handleClose={handleRenameModalClose}
-        handleShow={handleRenameModalShow}
-      />
+      {showRenameModal.value && (
+        <RenameFolderModal
+          show={showRenameModal}
+          handleClose={handleRenameModalClose}
+          handleShow={handleRenameModalShow}
+        />
+      )}
       <DeleteModal
         for="folder"
         show={showDeleteModal}

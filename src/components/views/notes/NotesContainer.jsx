@@ -68,13 +68,14 @@ function NoteList({ loading, setLoading }) {
         <CreateSkeleton num={10} color="#522d52" highlightColor="#563056" />
       ) : (
         <>
-          {notes.map((note) => {
+          {notes.map((note, index) => {
             const { id } = note;
             return (
               <section
                 className={`flex justify-between items-center mb-2 relative py-2 cursor-pointer ${
                   id == currentNoteId ? "bg-tertiary-base rounded-md px-2" : ""
                 }`}
+                key={index}
               >
                 <div
                   className="flex items-center"

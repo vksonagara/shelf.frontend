@@ -51,9 +51,13 @@ function MoveModal(prop) {
         }}
         className="w-full p-2"
       >
-        {folders.map((folder) => {
+        {folders.map((folder, index) => {
           if (folder.id != currentFolderId) {
-            return <option value={folder.id}>{folder.name}</option>;
+            return (
+              <option value={folder.id} key={index}>
+                {folder.name}
+              </option>
+            );
           }
         })}
       </select>
