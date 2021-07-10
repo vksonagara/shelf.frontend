@@ -102,8 +102,8 @@ export default function Home() {
         <h1 className="font-bold text-4xl text-center text-white leading-tight">
           Our Features
         </h1>
-        <div className="px-8 mt-8 flex justify-evenly w-full">
-          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center">
+        <div className="px-8 mt-8 flex w-full flex-wrap gap-8 justify-center">
+          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center mx-6 my-10 ">
             <i className="bi bi-journal text-2xl"></i>
             <h1 className="text-gray-700 font-semibold text-xl p-1">Notes</h1>
             <p className="text-gray-700 p-2">
@@ -113,22 +113,7 @@ export default function Home() {
               anywhere any time.
             </p>
           </section>
-        </div>
-      </div>
-
-      {/* Upcoming Features  */}
-
-      <div
-        className="flex flex-col items-center py-6"
-        style={{
-          backgroundColor: "#00315d",
-        }}
-      >
-        <h1 className="font-bold text-4xl text-center text-white leading-tight">
-          Upcoming Features
-        </h1>
-        <div className="px-8 mt-8 flex justify-center w-full">
-          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center mx-6">
+          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center mx-6 upcoming relative my-10">
             <i className="bi bi-list-task text-3xl"></i>
             <h1 className="text-gray-700 font-semibold text-2xl p-1">Todo</h1>
             <p className="text-gray-700 p-2">
@@ -137,7 +122,7 @@ export default function Home() {
               reset task.
             </p>
           </section>
-          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center mx-6">
+          <section className="w-1/5 flex flex-col items-center shadow-lg bg-white rounded-lg p-4 text-center mx-6 upcoming relative my-10">
             <i className="bi bi-calendar2-week text-2xl"></i>
             <h1 className="text-gray-700 font-semibold text-xl p-1">
               Calender
@@ -152,11 +137,11 @@ export default function Home() {
 
       {/* Free Section  */}
 
-      <div className="mt-20 flex justify-around items-center">
-        <div className="w-3/5 transform">
+      <div className="mt-20 flex justify-evenly items-center">
+        <div className="w-2/5 transform">
           <img src="images/shelf-screenshot.png" alt="" loading="lazy" />
         </div>
-        <section className="max-w-2xl">
+        <section className="w-2/5">
           <h1 className="font-bold text-4xl text-center text-black-light leading-tight">
             Shelf is free. And ad-free too.
           </h1>

@@ -5,36 +5,48 @@ import { useDispatch, useSelector } from "react-redux";
 import { renameFolder } from "../../redux/folders";
 import Modal from "./Modal/Modal";
 import Input from "../common/Form/Input";
+import { useEffect, useState } from "react";
 
 // Modal for rename folder
 
 function RenameFolderModal(prop) {
   const dispatch = useDispatch();
+  // const [props, setProps] = useState({});
 
-  const currentFolderName = prop.show.name;
+  // setProps(prop);
+
+  // useEffect(() => {}, []);
+
+  async function handleRename() {
+    console.log(prop);
+  }
 
   return (
     <Formik
       validationSchema={folderSchema}
       enableReinitialize
       initialValues={{
-        folderName: currentFolderName,
+        folderName: prop.show.name,
+        id: prop.show.id,
       }}
       onSubmit={async (values, { resetForm }) => {
+        console.log(values);
+        console.log(prop);
         const { data, error } = await notesApi.renamefolder(
-          prop.show.id,
+          values.id,
           values.folderName
         );
         if (!error) {
           dispatch(
             renameFolder({
-              id: prop.show.id,
+              id: values.id,
               name: values.folderName,
             })
           );
         }
         resetForm({});
         prop.handleClose();
+        // setProps({});
       }}
     >
       {({
@@ -51,8 +63,8 @@ function RenameFolderModal(prop) {
             show={prop.show}
             handleClose={prop.handleClose}
             func={handleSubmit}
-            type="Create"
-            title="Create a Folder"
+            type="Rename"
+            title="Rename Folder"
           >
             <Input
               type="text"
